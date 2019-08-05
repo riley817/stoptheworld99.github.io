@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="description" content="">
+<meta name="author" content="riley">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>3. 영속성 관리 :: @stoptheworld99</title>
+
+    
+    <link href="/css/nucleus.css?1551596329" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1551596329" rel="stylesheet">
+    <link href="/css/hybrid.css?1551596329" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1551596329" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1551596329" rel="stylesheet">
+    <link href="/css/auto-complete.css?1551596329" rel="stylesheet">
+    <link href="/css/theme.css?1551596329" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1551596329" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1551596329"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> 
+<style type="text/css">
+    
+    @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+    body {
+        font-family: 'Nanum Gothic';
+    }
+
+    h1 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.3rem;
+    }
+    h2, h3, h4, h5, h6 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 2rem 0 0.75rem 0;
+    }
+
+    h5 {
+        margin: 1.5rem 0 0.2rem 0;
+        font-size: 1.1rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    #chapter h2 {
+        color: #222;
+        text-align: center;
+
+    }
+
+    #chapter h3 {
+        font-family: "Nanum Gothic", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    }
+
+    #chapter p {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    pre {
+        margin:0.5rem 0 2rem 0;
+    }
+
+    div.notices p {
+        font-size: 0.8rem;
+    }
+
+    section strong {
+        font-weight: bold;
+    }
+    
+    article section.page h1:first-of-type {
+        font-family:  "Godo", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.8rem;
+    }
+
+    article section.page pre {
+        background-color: #272822 ;
+        color: #f8f8f2; 
+    }
+
+    article section.page p code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+
+    article section.page ul li code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+</style>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body class="" data-url="/notes/jpa-programming/1/page-1-3/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <i class="fab fa-github-alt" style="font-size:3rem;"></i> 
+<br/>
+RILEY (@stoptheworld99)
+<br/>
+개발블로그
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1551596329"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1551596329"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1551596329"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/" title="Notes" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/">
+          <i class='fas fa-book-open'></i>  Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/" title="Mastering Spring 5.0" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/">
+          <i class='fas fa-leaf'></i>  Mastering Spring 5.0
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/6/" title="6. 마이크로서비스 확장" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/6/">
+          6. 마이크로서비스 확장
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-1/" title="6.1 예외처리" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-1/">
+        6.1 예외처리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-2/" title="6.2 HATEOAS" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-2/">
+        6.2 HATEOAS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-3/" title="6.3 Bean Validation" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-3/">
+        6.3 Bean Validation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-4/" title="6.4 Swagger" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-4/">
+        6.4 Swagger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-5/" title="6.5 Spring Security - Basic authentication" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-5/">
+        6.5 Spring Security - Basic authentication
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-6/" title="6.6 Spring Security - OAuth 2.0" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-6/">
+        6.6 Spring Security - OAuth 2.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-7/" title="6.7 국제화" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-7/">
+        6.7 국제화
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-8/" title="6.8 캐싱" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-8/">
+        6.8 캐싱
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/13/" title="13. 리액티브 프로그래밍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/13/">
+          13. 리액티브 프로그래밍
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-1/" title="13.1 Reactive Programming" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-1/">
+        13.1 Reactive Programming
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-2/" title="13.2 Spring Reactive - 1" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-2/">
+        13.2 Spring Reactive - 1
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-3/" title="13.2 Spring Reactive - 2" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-3/">
+        13.2 Spring Reactive - 2
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/jpa-programming/" title="자바 ORM 표준 JPA Programming" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/jpa-programming/">
+          <i class='fas fa-cogs'></i> 자바 ORM 표준 JPA Programming
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-1/" title="1. JPA 소개" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-1/">
+        1. JPA 소개
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-2/" title="2. JPA 시작" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-2/">
+        2. JPA 시작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-3/" title="3. 영속성 관리" class="dd-item active">
+        <a href="/notes/jpa-programming/1/page-1-3/">
+        3. 영속성 관리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/" title="Elasticsearch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/">
+          Elasticsearch
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/1/" title="1 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/1/">
+          1 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-1/" title="Basic Concepts" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-1/">
+        Basic Concepts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-1/" title="Basic Concepts - Shard" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-1/">
+        Basic Concepts - Shard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-2/" title="Distributed Cluster" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-2/">
+        Distributed Cluster
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-3/" title="Basic Concepts - Segment" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-3/">
+        Basic Concepts - Segment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-4/" title="Install Elasticsearch with RPM" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-4/">
+        Install Elasticsearch with RPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-5/" title="Installation with .zip/.tar.gz" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-5/">
+        Installation with .zip/.tar.gz
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-6/" title="Installation Kibana" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-6/">
+        Installation Kibana
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/2/" title="2 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/2/">
+          2 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-1/" title="Elasticsearch 기본 동작" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-1/">
+        Elasticsearch 기본 동작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-2/" title="Plugin Installation" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-2/">
+        Plugin Installation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-3/" title="Head" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-3/">
+        Head
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-4/" title="Elastic-HQ" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-4/">
+        Elastic-HQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-5-1/" title="Elasticsearch Plugins" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-5-1/">
+        Elasticsearch Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/3/" title="3 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/3/">
+          3 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-1/" title="Configuring Elasticsearch" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-1/">
+        Configuring Elasticsearch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-2/" title="elasticsearch.yml" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-2/">
+        elasticsearch.yml
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-3/" title="jvm.options" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-3/">
+        jvm.options
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-4/" title="log4j2.properties" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-4/">
+        log4j2.properties
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-5/" title="그 외 설정" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-5/">
+        그 외 설정
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="/notes"><i class='fa fa-book-open'></i> <label>Notes</label></a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='' href="https://stoptheworld99.github.io/notes/JPA%20Programming/1/page-1-3.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text"></span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                   3. 영속성 관리 
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
+
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+
+
+
+<h2 id="3-영속성-관리">3. 영속성 관리</h2>
+
+<h4 id="jpa-가-제공하는-기능">JPA 가 제공하는 기능</h4>
+
+<hr />
+
+<ol>
+<li>엔티티와 테이블을 매핑하는 기능</li>
+<li>매핑하는 엔티티를 실제 사용하는 기능</li>
+</ol>
+
+<h4 id="3-1-엔티티-매니저-팩토리와-엔티티-매니저">3.1 엔티티 매니저 팩토리와 엔티티 매니저</h4>
+
+<hr />
+
+<h5 id="entitymanagerfactory">EntityManagerFactory</h5>
+
+<ul>
+<li><code>EntityManagerFactory</code> 는 이름 그대로 <code>EntityManager</code> 를 만드는 공장이다.</li>
+<li>공장을 만드는 비용은 상당히 크므로, 한 개만 만들어서 애플리케이션 전체에 공유하도록 설계해야 한다.</li>
+<li><strong><code>EntityManagerFactory</code> 는 여러 스레드에서 동시에 접근해도 안전하므로 서로 다른 스레드간 공유해도 된다.</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// MET-INF/persistence.xml 의 정보를 바탕으로 생성한다.
+</span><span class="c1"></span><span class="n">EntityManagerFactory</span> <span class="n">emf</span> <span class="o">=</span> <span class="n">Persistence</span><span class="o">.</span><span class="na">createEntityManagerFactory</span><span class="o">(</span><span class="s">&#34;jpabook&#34;</span><span class="o">);</span></code></pre></div>
+<h5 id="enititymanager">EnitityManager</h5>
+
+<ul>
+<li><code>EntityManager</code> 를 <code>EntityManagerFactory</code> 에서 생성하는 비용은 거의 들지 않는다.</li>
+<li><strong><code>EntityManager</code> 의 경우 여러 스레드가 동시에 접근하면 동시성 문제가 발생하므로 스레드간 절대 공유해서는 안된다.</strong></li>
+<li>엔티티 매니저는 데이터베이스 연결이 꼭 필요한 시점까지 커넥션을 얻지 않는다. (ex. 트랜잭션을 시작할 때 커넥션을 획득한다.)</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span></code></pre></div>
+<h4 id="3-2-영속성-컨텍스트">3.2 영속성 컨텍스트</h4>
+
+<hr />
+
+<ul>
+<li><code>영속성 컨텍스트 (persistence context)</code> 는 <strong>엔티티를 영구 저장하는 환경</strong> 이다.</li>
+<li>영속성 컨텍스트는 엔티티를 조회, 보관 등 관리하는 곳으로 눈에 보이지 않는 논리적인 개념이다.</li>
+<li>엔티티 매니저를 생성할 때 하나 만들어지며, 엔티티 매니저를 통해 영속성 컨텍스트에 접근 할 수 있고 영속성 컨텍스트를 관리 할 수 있다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 엔티티 매니저를 사용해서 회원 엔티티를 영속성 컨텍스트에 저장한다.
+</span><span class="c1"></span><span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span></code></pre></div>
+<blockquote>
+<p>여러 엔티티 매니저가 같은 영속성 컨텍스트에 접근 할 수도 있다.</p>
+</blockquote>
+
+<h4 id="3-3-엔티티의-생명주기">3.3 엔티티의 생명주기</h4>
+
+<hr />
+
+<h5 id="엔티티의-4가지-상태">엔티티의 4가지 상태</h5>
+
+<ul>
+<li><strong>비영속(new/transient)</strong> : 영속성 컨텍스트와 전혀 관계가 없는 상태</li>
+<li><strong>영속(managed)</strong> : 영속성 컨텍스트에 저장된 상태</li>
+<li><strong>준영속(detached)</strong> : 영속성 컨텍스트에 저장되었다가 분리된 상태</li>
+<li><strong>삭제(removed)</strong> : 삭제된 상태</li>
+</ul>
+
+<p><img src="/images/jpa/08fig01.jpg?classes=border,shadow" alt="image3-1" /></p>
+
+<h6 id="그림3-1-엔티티-생명주기">[그림3.1] 엔티티 생명주기</h6>
+
+<h5 id="비영속">비영속</h5>
+
+<ul>
+<li>비영속 상태는 영속성 컨텍스트나 데이터베이스와는 전혀 관련이 없다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 객체를 생성한 상태(비영속)
+</span><span class="c1"></span>
+<span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;memberId&#34;</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&#34;홍길동&#34;</span><span class="o">);</span></code></pre></div>
+<h5 id="영속">영속</h5>
+
+<ul>
+<li>엔티티 매니저를 통해 엔티티를 영속성 컨텍스트에 저장한 상태. <strong>영속성 컨텍스트가 관리하는 엔티티를 영속 상태</strong> 라 한다.</li>
+<li><code>em.find()</code> 나 <code>JPQL</code> 을 사용해서 조회한 엔티티도 영속성 컨텍스트가 관리하는 영속 상태다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 객체를 저장한 상태(영속)
+</span><span class="c1"></span><span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span></code></pre></div>
+<h5 id="준영속">준영속</h5>
+
+<ul>
+<li>영속성 컨텍스트가 관리하던 영속상태의 엔티티를 영속성 컨텍스트가 관리하지 않으면 준영속 상태가 된다.</li>
+<li>준영속 상태로 만들려면 <code>em.detach()</code> 나 <code>em.close()</code> 를 호출하여 영속성 컨텍스트를 닫거나 또는  <code>em.clear()</code> 영속성 컨텍스트를 초기화 하는 방법이 할때 준영속 상태가 된다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 회원 엔티티를 영속성 컨텍스트에서 분리 (준영속 상태)
+</span><span class="c1"></span><span class="n">em</span><span class="o">.</span><span class="na">detach</span><span class="o">(</span><span class="n">member</span><span class="o">);</span></code></pre></div>
+<h5 id="삭제">삭제</h5>
+
+<ul>
+<li>엔티티를 영속성 컨텍스트와 데이터베이스에서 삭제한다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 객체를 삭제한 상태(삭제)
+</span><span class="c1"></span><span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">member</span><span class="o">);</span></code></pre></div>
+<h4 id="3-4-영속성-컨텍스트의-특징">3.4 영속성 컨텍스트의 특징</h4>
+
+<hr />
+
+<h5 id="1-영속성-컨텍스트와-식별자-값">1) 영속성 컨텍스트와 식별자 값</h5>
+
+<ul>
+<li><strong>영속상태는 식별자 값이 반드시 있어야 한다.</strong></li>
+<li>영속성 컨텍스트는 엔티티를 식별자 값(<code>@Id</code> 로 테이블의 기본키와 매핑한 값) 으로 구분한다.</li>
+</ul>
+
+<h5 id="2-영속성-컨텍스트와-데이터-베이스-저장">2) 영속성 컨텍스트와 데이터 베이스 저장</h5>
+
+<ul>
+<li>JPA 는 보통 트랜잭션을 commit 하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터 베이스에 반영한다. 이것을 <strong>플러시(flush)</strong> 라고 한다.</li>
+</ul>
+
+<h5 id="3-영속성-컨텍스트가-엔티티를-관리하면-다음과-같은-장점이-있다">3) 영속성 컨텍스트가 엔티티를 관리하면 다음과 같은 장점이 있다.</h5>
+
+<ul>
+<li>1차 캐시</li>
+<li>동일성 보장</li>
+<li>트랜잭션을 지원하는 쓰기 지연</li>
+<li>변경 감지</li>
+<li>지연 로딩</li>
+</ul>
+
+<hr />
+
+<h4 id="3-4-1-엔티티-조회">3.4.1 엔티티 조회</h4>
+
+<ul>
+<li>영속성 컨텍스트는 내부에 캐시를 가지고 있으며 이것을 1차 캐시라고 한다. <strong>영속 상태의 엔티티는 모두 이곳에 저장된다.</strong></li>
+<li>영속성 컨텍스트 내부에 Map 이 하나 있는데 키는 <code>@Id</code> 로 매핑한 식별자고 값은 엔티티 인스턴스 이다.</li>
+<li>1차 캐시의 키는 식별자 값이며 기본적으로 데이터베이스의 기본키와 매핑되어 있다.</li>
+</ul>
+
+<h5 id="영속성-컨텍스트-1차-캐시">영속성 컨텍스트 1차 캐시</h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 엔티티를 생성한 상태 (비영속)
+</span><span class="c1"></span><span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;member1&#34;</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUserName</span><span class="o">(</span><span class="s">&#34;회원&#34;</span><span class="o">);</span> 
+
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span> <span class="o">//</span> <span class="n">엔티티를</span> <span class="n">영속</span></code></pre></div>
+<p><img src="/images/jpa/jpa3.5.png" alt="jpa3.7" /></p>
+
+<blockquote>
+<p>회원 엔티티는 아직 데이터베이스에 저장되지 않았다.</p>
+</blockquote>
+
+<hr />
+
+<h5 id="1차-캐시에서-조회">1차 캐시에서 조회</h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;member1&#34;</span><span class="o">);</span></code></pre></div>
+<p><img src="/images/jpa/jpa3.6.png" alt="jpa3.7" /></p>
+
+<ul>
+<li><code>em.find()</code> 를 호출하면 우선 1차 캐시에서 식별자 값으로 엔티티를 찾는다.</li>
+</ul>
+
+<hr />
+
+<h5 id="데이터베이스에서-조회">데이터베이스에서 조회</h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 1차 캐시에 없는 member2 인스턴스를 조회
+</span><span class="c1"></span><span class="n">Member</span> <span class="n">findMember2</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;member2&#34;</span><span class="o">);</span></code></pre></div>
+<ul>
+<li>만약 <code>em.find()</code> 를 호출했는데 엔티티가 1차 캐시에 없으면 엔티티 매니저는 데이터 베이스를 조회하여 엔티티를 생성한다. 그리고 1차 캐시에 저장한 후 반환한다.</li>
+</ul>
+
+<p><img src="/images/jpa/jpa3.7.png" alt="jpa3.7" /></p>
+
+<ol>
+<li><code>em.find(Member.class, &quot;member2&quot;)</code> 를 실행</li>
+<li><code>member2</code> 가 1차 캐시에 없으므로 데이터베이스에서 조회</li>
+<li>조회한 데이터로 <code>member2</code> 엔티티를 생성하여 1차 캐시에 저장 (영속상태)</li>
+<li>조회한 엔티티 인스턴스를 반환</li>
+</ol>
+
+<hr />
+
+<h5 id="영속성-엔티티의-동일성-보장">영속성 엔티티의 동일성 보장</h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Member</span> <span class="n">a</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;member1&#34;</span><span class="o">);</span>
+<span class="n">Member</span> <span class="n">b</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="n">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;member1&#34;</span><span class="o">);</span>
+
+<span class="c1">// 결과값은 true. 
+</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">);</span> </code></pre></div>
+<ul>
+<li><code>em.find(Member.class, &quot;member1&quot;)</code> 를 반복해서 호출해도 영속성 컨텍스트는 1차 캐시에 있는 같은 엔티티 인스턴스를 반환한다.</li>
+<li><strong>영속성 컨텍스트는 성능상 이점과 엔티티의 동일성을 보장한다.</strong></li>
+</ul>
+
+<hr />
+
+<h6 id="이미지-출처">이미지 출처</h6>
+
+<ul>
+<li><a href="http://ptgmedia.pearsoncmg.com/images/chap8_9780131587564/elementLinks/08fig01.jpg">http://ptgmedia.pearsoncmg.com/images/chap8_9780131587564/elementLinks/08fig01.jpg</a></li>
+</ul>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+            </div> 
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1551596329"></script>
+    <script src="/js/jquery.sticky.js?1551596329"></script>
+    <script src="/js/featherlight.min.js?1551596329"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1551596329"></script>
+    <script src="/js/highlight.pack.js?1551596329"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1551596329"></script>
+    <script src="/js/learn.js?1551596329"></script>
+    <script src="/js/hugo-learn.js?1551596329"></script>
+
+    <link href="/mermaid/mermaid.css?1551596329" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1551596329"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

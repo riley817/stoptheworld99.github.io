@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="ko-kr">
+  <head>
+    <title>11.2 Spring Reactive - 1 // @stoptheworld99</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="riley" />
+    <meta name="description" content=" 자바의 리액티브 프로그래밍 - 리액티브 스트림, 리액터 " />
+    <link rel="stylesheet" href="/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="11.2 Spring Reactive - 1"/>
+<meta name="twitter:description" content=" 자바의 리액티브 프로그래밍 - 리액티브 스트림, 리액터 "/>
+
+    <meta property="og:title" content="11.2 Spring Reactive - 1" />
+<meta property="og:description" content=" 자바의 리액티브 프로그래밍 - 리액티브 스트림, 리액터 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/spring5.0/11/page-11-2/" />
+
+
+
+    <style type="text/css">
+        @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+        body {
+            font-family: 'Nanum Gothic';
+        }
+
+        h1 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-size: 1.6rem;
+        }
+        h2, h3, h4, h5, h6 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-weight: bold;
+        }
+
+        code {
+          color: #57cc8a;
+           
+           
+           
+          border-radius: .2em;
+          background: rgba(255,255,255,.1);
+        }
+      
+        pre code {
+          color:#f8f8f2;
+          background: #272821;
+          font-size: 1em;
+        }
+
+        .chroma {
+          background-color: #272821;
+        }
+        p img {
+          margin-left: auto; margin-right: auto; display: block;
+        }
+
+        .post-content {
+          font-size: .9em;
+        }
+        
+        .post-content .image-area {
+          font-size:0.8rem;
+          text-align:center 
+        }
+
+        strong {
+          color: #57cc8a;
+        }
+
+        hr {
+          margin-block-start: 1.5em;
+          margin-block-end: 1.5em;
+        }
+
+        table{
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+          border-bottom: 1px solid #ccc;
+          margin: 20px 10px;
+        }
+        table thead th {
+            width: 150px;
+            padding: 5px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #fff;
+            background: #0489B1;
+            margin: 20px 10px;
+        }
+        table tbody th {
+            width: 150px;
+            padding: 10px;
+        }
+        table td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        table .even {
+            background: #fdf3f5;
+        }
+
+        strong {
+          color : #0489B1;
+        } 
+
+        .gist .blob-wrapper.data {
+          max-height:700px;
+          overflow:auto;
+        }
+
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="riley" /></a>
+      <h1>@stoptheworld99</h1>
+      <p>걍 정리</p><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/jpa/">JPA</a><a class="tag" href="/tags/h2/">H2</a><a class="tag" href="/tags/spring/">spring</a><a class="tag" href="/tags/note/">note</a></div><br/>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.instagram.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">11.2 Spring Reactive - 1</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="11-2-spring-reactive-1">11.2 Spring Reactive - 1</h2>
+
+<h4 id="1-리액티브-스트림">1. 리액티브 스트림</h4>
+
+<hr />
+
+<h5 id="1-1-리액티브-스트림-의존성-추가">1.1 리액티브 스트림 의존성 추가</h5>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams:1.0.2&#39;</span><span class="o">)</span>
+<span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams-tck:1.0.2&#39;</span><span class="o">)</span></code></pre></div>
+<h5 id="1-2-리액티브-스트림의-구성요소">1.2 리액티브 스트림의 구성요소</h5>
+
+<ul>
+<li><code>Publisher</code>  : 데이터 제공자. 구독한 구독자들에게 구독 정보를 토대로 데이터를 제공한다.</li>
+<li><code>Subscriber</code> : 데이터 소모자. 제공자로부터 데이터를 받아 소모한다.</li>
+
+<li><p><code>Subscription</code> : 구독 정보. Subscriber 는 Publisher 를 구독하여 데이터(n) 요청할 수 있다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Publisher
+</span><span class="c1"></span><span class="kn">package</span> <span class="nf">org</span><span class="p">.</span><span class="na">reactivestreams</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">interface</span> <span class="n">Publisher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">Subscriber</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nf">T</span><span class="o">&gt;</span> <span class="n">var1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Subscriber
+</span><span class="c1"></span><span class="kn">package</span> <span class="nf">org</span><span class="p">.</span><span class="na">reactivestreams</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">interface</span> <span class="n">Subscriber</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">onSubscribe</span><span class="p">(</span><span class="n">Subscription</span> <span class="nf">var1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">onNext</span><span class="p">(</span><span class="n">T</span> <span class="nf">var1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">onError</span><span class="p">(</span><span class="n">Throwable</span> <span class="nf">var1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">onComplete</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Subscription
+</span><span class="c1"></span><span class="kn">package</span> <span class="nf">org</span><span class="p">.</span><span class="na">reactivestreams</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">interface</span> <span class="n">Subscription</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">request</span><span class="p">(</span><span class="kt">long</span> <span class="nf">var1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">cancel</span><span class="p">();</span>
+<span class="p">}</span></code></pre></div></li>
+</ul>
+
+<p><img src="https://grokonez.com/wp-content/uploads/2017/04/reactive-stream-flow-interface-behavior.png" alt="reactive-stream-diagram" /></p>
+
+<h5 id="publisher">Publisher</h5>
+
+<ul>
+<li><code>void subscribe(Subscriber&lt;? super T&gt; var1);</code> : <strong>Subscriber</strong> 객체를 매개변수로 입력받아 <strong>Publisher</strong> 가 <strong>Subscriber</strong> 관리 할 수 있다. 그리고 <strong>Subscriber</strong> 의 메소드를 사용할 수 있다.<br /></li>
+</ul>
+
+<h5 id="subscriber">Subscriber</h5>
+
+<ul>
+<li><code>onSubscribe()</code> : <strong>Publisher</strong> 를 구독하게 되면 호출된다.</li>
+<li><code>onNext()</code> : 비동기 식으로 <code>Executor</code> 를 통해 구독자에게 메세지를 게시할 수 있다.</li>
+<li><code>onError()</code> : 에러가 발생 시 호출된다.</li>
+<li><code>onComplete()</code> : 더 게시된 메세지 요소가 없을 경우 다음 작업을 수행한다.</li>
+</ul>
+
+<h5 id="subscription">Subscription</h5>
+
+<ul>
+<li><code>request()</code> :  <strong>Publisher</strong> 에게 게시된 데이터를 요청한다.</li>
+<li><code>cancel()</code> : 데이터에 대한 요청을 취소한다.</li>
+</ul>
+
+<hr />
+
+<h5 id="출처-및-참고-사이트">출처 및 참고 사이트</h5>
+
+<ul>
+<li>Java9 Reactive Stream API
+
+<ul>
+<li><a href="http://www.reactive-streams.org/">http://www.reactive-streams.org/</a></li>
+</ul></li>
+<li>Java9 Reactive Stream 에 대한 자세한 설명 및 내용 참고
+
+<ul>
+<li><a href="http://jess-m.tistory.com/18">http://jess-m.tistory.com/18</a></li>
+<li><a href="https://grokonez.com/java/java-9/java-9-flow-api-reactive-streams">https://grokonez.com/java/java-9/java-9-flow-api-reactive-streams</a></li>
+</ul></li>
+</ul>
+
+<h4 id="2-리액터">2. 리액터</h4>
+
+<hr />
+
+<p>리액터는 스프링 피보탈 팀의 리액티브 프레임워크이며, 리액티브 스트림을 기반으로 한다.</p>
+
+<h5 id="2-1-의존성-추가">2.1 의존성 추가</h5>
+
+<p><code># build.gradle</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span>      <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-core:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+<span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-test:3.2.5.RELEASE&#39;</span><span class="o">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">plugins</span> <span class="o">{</span>
+    <span class="n">id</span> <span class="s1">&#39;java&#39;</span>
+    <span class="n">id</span> <span class="s1">&#39;war&#39;</span>
+    <span class="n">id</span> <span class="s1">&#39;org.springframework.boot&#39;</span> <span class="n">version</span> <span class="s1">&#39;2.1.1.RELEASE&#39;</span>
+<span class="o">}</span>
+
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;io.spring.dependency-management&#39;</span>
+
+<span class="n">group</span> <span class="s1">&#39;com.mastering.spring&#39;</span>
+<span class="n">version</span> <span class="s1">&#39;1.0-SNAPSHOT&#39;</span>
+
+<span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="mf">1.11</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.springframework.boot:spring-boot-starter&#39;</span><span class="o">)</span>
+
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams:1.0.2&#39;</span><span class="o">)</span>
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams-tck:1.0.2&#39;</span><span class="o">)</span>
+
+    <span class="n">implementation</span>      <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-core:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-test:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;org.springframework.boot:spring-boot-starter-test:2.1.2.RELEASE&#39;</span><span class="o">)</span>
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;junit:junit:4.12&#39;</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+<h5 id="2-2-mono-와-flux">2.2 Mono 와 Flux</h5>
+
+<p>Mono 와 Flux 모두 Reactive Stream 의 Publisher 인터페이스를 구현하고 있으며, Reactor 에서 제공하는 여러 연산자(operators) 의 조합을 통해 스트림을 가공할 수 있다.</p>
+
+<ul>
+<li><code>Mono</code> : 요소가 아예 없거나 하나의 결과만을 처리하기 위한 Reactor 객체</li>
+
+<li><p><code>Flux</code> : 결과가 0-N 개인 여러 개의 결과를 처리하는 Reactor 객체</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nf">com</span><span class="p">.</span><span class="na">mastering</span><span class="p">.</span><span class="na">spring</span><span class="p">.</span><span class="na">reactive</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nf">org</span><span class="p">.</span><span class="na">junit</span><span class="p">.</span><span class="na">Test</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">reactor</span><span class="p">.</span><span class="na">core</span><span class="p">.</span><span class="na">publisher</span><span class="p">.</span><span class="na">Mono</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">time</span><span class="p">.</span><span class="na">Duration</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">SpringReactiveTest</span> <span class="p">{</span>
+
+<span class="nd">@Test</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">monoExample</span><span class="p">()</span> <span class="kd">throws</span> <span class="nf">InterruptedException</span> <span class="p">{</span>
+
+    <span class="c1">// 5초 후에 하나의 요소를 방출한다.
+</span><span class="c1"></span>    <span class="n">Mono</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">stubMonoWithADelay</span> <span class="o">=</span> <span class="n">Mono</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="s">&#34;Ranga&#34;</span><span class="p">).</span><span class="na">delayElement</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">5</span><span class="p">));</span>
+
+    <span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1"></span>    <span class="n">stubMonoWithADelay</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="p">);</span>
+
+    <span class="c1">// 테스트 실행시간을 지연시킨다.
+</span><span class="c1"></span>    <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">10000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* Consumer 를 명시적으로 정의
+</span><span class="cm">*/</span>
+<span class="kd">class</span> <span class="nf">SystemOutConsumer</span> <span class="kd">implements</span> <span class="nf">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">String</span> <span class="nf">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Received &#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34; at&#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1">// stubMonoWithADelay.subscribe(System.out::println);
+</span><span class="c1"></span><span class="n">stubMonoWithADelay</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="p">());</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nf">WelcomeConsumer</span> <span class="kd">implements</span> <span class="nf">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">String</span> <span class="nf">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Welcome &#34;</span> <span class="o">+</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1">// stubMonoWithADelay.subscribe(System.out::println);
+</span><span class="c1"></span><span class="n">stubMonoWithADelay</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="p">());</span>
+<span class="n">stubMonoWithADelay</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">WelcomeConsumer</span><span class="p">());</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">simpleFluxStream</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Flux</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">stubFluxStream</span> <span class="o">=</span> <span class="n">Flux</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="s">&#34;Jane&#34;</span><span class="p">,</span> <span class="s">&#34;Joe&#34;</span><span class="p">);</span>
+    <span class="n">stubFluxStream</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="p">}</span></code></pre></div></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

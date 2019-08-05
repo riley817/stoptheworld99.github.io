@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elasticsearch on @stoptheworld99</title>
+    <link>/tags/elasticsearch/</link>
+    <description>Recent content in elasticsearch on @stoptheworld99</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 20 Oct 2018 17:53:39 +0900</lastBuildDate>
+    
+	<atom:link href="/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Elasticsearch] 1.1 개념 및 용어 정리 - Document, Index, Type, Cluster, Node</title>
+      <link>/elasticsearch/1/page-1-1/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-1/</guid>
+      <description>Document  도큐먼트는 JSON (Javascript Object Notation) 형태의 Elasticsearch 의 기본 저장단위 이다. 관계형 데이터 베이스의 Row 와 비슷한 개념으로 볼 수 있다. 도큐먼트는 데이터에 적재될 때 Document ID 를 갖는다. Document ID 는 지정하지 않으면 랜덤하게 생성 되며, 사용자가 정의한 값으로도 생성 가능하다. Document ID 는 데이터를 찾아가는 Metadata 로 볼 수 있다.  Index  Index 는 비슷한 형질을 가지는 도큐먼트 간의 집합이다. 관계형 데이터 베이스의 Database 와 비슷한 개념으로 볼 수 있다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.2 개념 및 용어 정리 - Shard</title>
+      <link>/elasticsearch/1/page-1-2/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-2/</guid>
+      <description>1.Shard  Shard 란 인덱스의 데이터를 나누는 단위 이다. 인덱스는 무한한 양의 데이터가 저장이 가능하다. 그래서 인덱스 데이터가 단일 노드의 하드웨어의 용량을 초과하여 더이상 데이터를 저장할 수 없거나 혹은 CPU, Memory 의 자원 초과로 인덱싱이나 검색의 성능 저하를 발생시킬 수 있다. 이러한 문제를 해결하기 위하여 인덱스를 수 많은 조각으로 나누어 관리한다.
+ 샤딩을 함으로써  콘텐츠 볼륨의 수평(Horizontal) 분할 및 확장이 가능하다. (관계형 데이터베이스처럼 컬럼별로 나누는 것이 아닌 횡별로 나누어 샤드에 저장.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.3 클러스터 분산구성 시나리오</title>
+      <link>/elasticsearch/1/page-1-3/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-3/</guid>
+      <description>1. 단일 노드에 3개의 샤드로 클러스터 구성하기 curl 을 통하여 blogs 라는 인덱스에 3 개의 Primary 샤드와 1개의 Replica 샤드가 운용되도록 할당한다.
+curl -X PUT &amp;#34;localhost:9200/blogs&amp;#34; -H &amp;#39;Content-Type: application/json&amp;#39; -d { &amp;#34;settings&amp;#34; : { &amp;#34;number_of_shards&amp;#34; : 3, &amp;#34;number_of_replicas&amp;#34; : 1 } } [그림] 샤드의 개수는 3이고 레플리카 개수는 1개인 단일 노드
+ 클러스터는 정상적으로 작동되나, 하드웨어의 오류가 발생할 경우 데이터 손실의 위험이 있다. 데이터 적재량이 많을 경우 싱글노드가 허용하는 볼륨을 모두 소진할 수도 있어 더이상 적재가 불가능 할 수도 있다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.4 개념 및 용어정리 - Inverted Index, Segment</title>
+      <link>/elasticsearch/1/page-1-4/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-4/</guid>
+      <description>1. Inverted Index 전통적인 데이터베이스는 필드당 하나의 값을 저장하기 때문에 전체 텍스트 검색에는 적합하지 않다. 즉 다중 값을 색인화 할 수 있어야 하는데, Elasticsearch 에서는 Inverted Index 형태의 인덱싱을 통해 Full-text Search 가 가능하도록 했다. 모든 문서에서 발생하는 모든 고유 값 또는 용어의 정렬된 목록을 포함하며, 각 용어에 대해 이를 포함하는 모든 문서 목록을 표시한다.
+Full-text Search (전체 텍스트 검색) 는 요청한 모든 단어를 문서 또는 데이터베이스에서 모든 단어와 비교하는 포괄적 인 검색 방법이다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.5 Install Elasticsearch - yum, rpm 설치</title>
+      <link>/elasticsearch/1/page-1-5/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-5/</guid>
+      <description>Elasticsearch 는 Java 언어로 이루어진 아파치 Lucene 기반으로 이루어져 있다. 그러므로, 설치를 위해서는 Java 가 먼저 설치되어 있어야 한다. ES 는 여러가지 방법으로 설치가능하지만 그중에서 RPM 패키지 관리자로 설치하는 방법에 대해 정리하였다.
+ 다른 방법으로 ES 설치하기  1. yum 으로 설치하기 1.1) RPM Repository 등록하기 /etc/yum.repos.d/elasticsearch.repo : yum 저장소에 elastic 저장소를 수동으로 추가 한다.
+# /etc/yum.repos.d/elasticsearch.repo [elasticsearch-6.x] name=Elasticsearch repository for 6.x packages baseurl=https://artifacts.elastic.co/packages/6.x/yum gpgcheck=1 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch enabled=1 autorefresh=1 type=rpm-md  1.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.6 Installation - .zip/.tar.gz</title>
+      <link>/elasticsearch/1/page-1-6/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-6/</guid>
+      <description>Elasticsearch는 .zip 또는 .tar.gz 패키지로도 제공된다. 모든 시스템에 제한없이 가장 쉽게 설치할 수 있는 방법이다.
+ 다른 방법으로 ES 설치하기 최신 버전 다운로드  1. zip 패키지로 다운로드 및 설치하기 1.1) wget 으로 .zip 파일 다운로드 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.zip 1.2) zip 압축해제 unzip elasticsearch-6.4.2.zip 2. tar.gz 패키지로 다운로드 및 설치하기 2.1) wget 으로 .zip 파일 다운로드 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.tar.gz 2.2) tar 압축해제 tar -xzf elasticsearch-6.4.2.tar.gz 3. Command Line 에서 실행하기 ./bin/elasticsearch # running as a daemon .</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.7 Installation Kibana</title>
+      <link>/elasticsearch/1/page-1-7/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-7/</guid>
+      <description>Kibana 는 Elasticsearch 의 오픈 소스 데이터 시각화 플러그인이다. Elasticsearch 클러스터에 인덱싱 된 데이터들을 시각화 하는 기능을 제공한다.  1. yum 으로 Kibana 설치하기 1.1) RPM Repository 등록 vi /etc/yum.repos.d/kibana.repo
+# /etc/yum.repos.d/kibana.repo [kibana-6.x] name=Kibana repository for 6.x packages baseurl=https://artifacts.elastic.co/packages/6.x/yum gpgcheck=1 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch enabled=1 autorefresh=1 type=rpm-md  1.2) yum 명령어로 install yum install kibana 2. Kibana 설정 Kibana 서버는 시작할 때 kibana.yml 에서 속성을 읽는다. kibana.yml 은 배포파일(.zip/.tar.gz) 로 설치한 경우 $KIBANA_HOME/config 에 위치하며 패키지 배포판 에서는 /etc/kibana 에 위치한다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.1 Elasticsearch 기본 동작</title>
+      <link>/elasticsearch/2/page-2-1/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-1/</guid>
+      <description>1. Index 생성하기 인덱스를 생성하는 방법
+ Index Settings 를 정의한다. Index Mappings 를 정의한다. 사용자 정의된 도큐먼트를 인덱싱한다.  1.1) Index Settings  Static Index Settings  index.number_of_shards : 인덱스가 가져야 하는 Primary 샤드의 개수 설정. (기본값 5)  Dynamic Index Settings  index.number_of_replicas : 각 기본 샤드의 복제본 (Replica 샤드 개수 설정). 기본값은 1 index.refresh_interval : 검색 commit point 를 만드는 refresh interval 설정 (새로 고침 작업수행 빈도).</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.2 플러그인 설치하기</title>
+      <link>/elasticsearch/2/page-2-2/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-2/</guid>
+      <description> 플러그인 설치 인터넷이 가능한 환경에서 설치시 $ cd /usr/share/elasticsearch/ $ sudo bin/elasticsearch-plugin install [플러그인이름] # example $ sudo bin/elasticsearch-plugin install analysis-nori 파일서버 등에서 설치시 $ sudo bin/elasticsearch-plugin install file://path/to/plugin.zip # 파일서버 $ sudo bin/elasticsearch-plugin install [파일서버URL] 설치된 플러그인 리스트 확인 sudo bin/elasticsearch-plugin list 설치된 플러그인 제거 sudo bin/elasticsearch-plugin remove [플러그인이름] [참고]
+ Elasticsearch Reference - plugin-management  </description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.3 Head 소개</title>
+      <link>/elasticsearch/2/page-2-3/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-3/</guid>
+      <description>Elasticsearch Head 클러스트들을 한눈에 보기 위한 도구. 직접 서버를 구성하여 설치할 수도 있고 크롬의 브라우저 익스텐션으로도 제공한다.
+Installation 1.1) ES Head git repository 에서 클론 혹은 다운로드한다. # git 이 설치되어 있지 않으면 sudo yum -y install git git clone https://github.com/mobz/elasticsearch-head.git 1.2) npm 으로 관련 의존성 모듈 설치 cd elasticsearch-head/ sudo yum -y install bzip2 epel-release sudo yum -y install npm # Node 가 설치되어있어야 한다. npm install 1.3) 내장서버 실행 npm run start 1.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.5 Elastic-HQ</title>
+      <link>/elasticsearch/2/page-2-4/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-4/</guid>
+      <description>Elastic HQ 설치하기 Requirements  Python 3.4+ Elasticsearch. Supported versions: 2.x, 5.x, 6.x  1.1) ElasticHQ Git Repository 에서 클론 혹은 다운로드 한다. # git 이 설치되어 있지 않으면 sudo yum -y install git git clone https://github.com/ElasticHQ/elasticsearch-HQ.git 1.2) Python 3.4+ 설치한다. (pip 은 파이선 패키지 관리자) # clone 한 디렉터리로 이동 후 cd elasticsearch-HQ/ sudo yum -y install python34 python34-pip 1.3) Repository 의 의존성 패키지 설치한다. pip install -r requirements.</description>
+    </item>
+    
+    <item>
+      <title>[elasticsearch] 2.5 Elasticsearch 플러그인</title>
+      <link>/elasticsearch/2/page-2-5/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-5/</guid>
+      <description> Elasticsearch 플러그인  플러그인은 사용자 정의 방식에 의해 ES 의 긴능을 향상 시키는 방법이다. 플러그인은 모든 노드에 설치해야 하며 설치 후 클러스터를 재시작 해야 한다.  플러그인 범주 Core Plugins (권고)  Elasticsearch 에서 공식적으로 지원하는 플러그인 Elasticsearch 버전이 업데이트 될때마다 버전 업데이트가 지원됨.  Community contributed  개인 개발자나 회사에 의해 지원되는 플러그인  [참고]
+ Elasticsearch Reference - modules-plugins.  </description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 3.1 Elasticsearch 구성하기</title>
+      <link>/elasticsearch/3/page-3-1/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-1/</guid>
+      <description>Elasticsearch 는 정적으로 설정을 구성할 수 있을 뿐만 아니라 클러스터 운영중에도 클러스터 세팅 업데이트 API 를 통하여 동적인 설정 구성이 가능하다.
+1. Static settings Elasticsearch는 노드별로 설정파일을 구성할 수 있다. Elasticsearch 에는 세 개의 구성 파일이 있으며, 이 설정 파일들의 위치는 아카이브 배포판 설치시에는 $ES_HOME/config, 패키지 배포시에는 (RPM 설치 등) /etc/elasticsearch 에 위치한다.
+ elasticsearch.yml : Elasticsearch 의 핵심 설정 jvm.options : JVM 옵션 설정 ( heapsize 설정 ) log4j2.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 3.2 elasticsearch.yml</title>
+      <link>/elasticsearch/3/page-3-2/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-2/</guid>
+      <description>elasticsearch.yml 은 데이터 파일 위치, 로그파일 위치 등 클러스터의 핵심적인 설정을 할 수 있는 구성 파일이다. 파일 포맷은 YAML 로 되어있다.
+1. elasticsearch.yml # path.data : 데이터파일의 위치를 설정 # path.logs : ES 의 로그 파일이 저장될 위치를 설정path:data:/var/lib/elasticsearchlogs:/var/log/elasticsearch# 클러스터를 고유하게 식별할 수 있는 이름 설정cluster:name:es-cluster# 노드를 고유하게 식별할 수 있는 이름설정# 보통 호스트명 기준으로 설정하는 것이 운영에 용이 nodename:es-master01 1.1) path.data path.data 는 Index 의 데이터를 저장할 경로를 지정할 수 있으며 경로는 하나 혹은 여러개로도 지정이 가능하다.</description>
+    </item>
+    
+    <item>
+      <title>jvm.options</title>
+      <link>/elasticsearch/3/page-3-3/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-3/</guid>
+      <description>jvm.options jvm.options 의 설정을 통해 JVM(Java Virtual Machine) 의 옵션을 변경할 수 있습니다. jvm.options 환경 설정 파일은 config/jvm.options(tar or zip 배포판) 또는 /etc/elasticsearch/jvm.options(rpm 패키지 설치) 에서 위치하고 있습니다.
+JVM Heap Size Configuration Elasticsearch 는 Java 기반이기 때문에 Heap 메모리를 어떻게 설정하느냐에 따라 성능에 큰 영향을 미치게 됩니다. 기본적으로 Elasticsearch 의 최소, 최대 Heap 사이즈는 2GB 설정되어 있습니다. 실제 운영환경에 따라서 Elasticsearch 에서 충분한 Heap 을 사용할 수 있도록 Heap Size 를 구성하는 것이 중요합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>13. 리액티브 프로그래밍 on @stoptheworld99</title>
+    <link>/notes/spring5.0/13/</link>
+    <description>Recent content in 13. 리액티브 프로그래밍 on @stoptheworld99</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Tue, 15 Jan 2019 12:52:04 +0900</lastBuildDate>
+    
+	<atom:link href="/notes/spring5.0/13/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>13.1 Reactive Programming</title>
+      <link>/notes/spring5.0/13/page-13-1/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/notes/spring5.0/13/page-13-1/</guid>
+      <description>13.1 Reactive Programming 1. 리액티브 시스템 새로운 디바이스 (모바일, 태블릿 등) real-time data 에 대한 수요 증가
+ 대량의 프로세스 처리 로드 발생 데이터 볼륨이 기하급수적으로 증가 인프라 유지 보수 비용 증가  1.1 Reactive 시스템 특징  Reactive manifesto : https://www.reactivemanifesto.org/ko  Reative Manifesto 는 다음 네 가지 핵심 원칙에 따라 Reactive System 의 특성을 개략적으로 설명하고 있다.
+ 반응성 (Responsive) : 모든 응답은 적시에 빠르고 일관된 대응을 제공하며 신뢰할수 있으며 일관된 서비스 품질을 제공한다.</description>
+    </item>
+    
+    <item>
+      <title>13.2 Spring Reactive - 1</title>
+      <link>/notes/spring5.0/13/page-13-2/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/notes/spring5.0/13/page-13-2/</guid>
+      <description>13.2 Spring Reactive - 1 1. 리액티브 스트림 1.1 리액티브 스트림 의존성 추가 implementation (&amp;#39;org.reactivestreams:reactive-streams:1.0.2&amp;#39;) implementation (&amp;#39;org.reactivestreams:reactive-streams-tck:1.0.2&amp;#39;) 1.2 리액티브 스트림의 구성요소  Publisher : 데이터 제공자. 구독한 구독자들에게 구독 정보를 토대로 데이터를 제공한다. Subscriber : 데이터 소모자. 제공자로부터 데이터를 받아 소모한다. Subscription : 구독 정보. Subscriber 는 Publisher 를 구독하여 데이터(n) 요청할 수 있다.  // Publisher package org.reactivestreams; public interface Publisher&amp;lt;T&amp;gt; { void subscribe(Subscriber&amp;lt;? super T&amp;gt; var1); } // Subscriber package org.</description>
+    </item>
+    
+    <item>
+      <title>13.2 Spring Reactive - 2</title>
+      <link>/notes/spring5.0/13/page-13-3/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/notes/spring5.0/13/page-13-3/</guid>
+      <description>13.2 Spring Reactive - 2 3. 스프링 웹 리액티브 스프링 웹 리액티브는 스프링 프레임워크 5 의 새로운 기능 중 하나이다. 이 기능은 웹 애플리케이션의 리액티브 기능을 제공한다. 스프링 웹 리액티브는 스프링 MVC 와 동일한 기본 프로그래밍 모델을 기반으로 한다.
+3.1 웹 리액티브 스트림 의존성 추가 implementation (&amp;#39;org.springframework.boot:spring-boot-starter-webflux&amp;#39;) 3.2 리액티브 컨트롤러 생성 @RestController public class StockPriceEventController { @GetMapping(&amp;#34;/stocks/price/{stockCode}&amp;#34;) Flux&amp;lt;String&amp;gt; retrieveStockPriceHardcoded(@PathVariable(&amp;#34;stockCode&amp;#34;) String stockCode) { return Flux.interval(Duration.ofSeconds(5)) .map(l -&amp;gt; getCurrentDate() +&amp;#34; : &amp;#34; + getRandomNumber(100, 125)).</description>
+    </item>
+    
+  </channel>
+</rss>

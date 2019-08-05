@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ko-kr">
+  <head>
+    <title>[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개 // @stoptheworld99</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="riley" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개"/>
+<meta name="twitter:description" content="김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+1.1 SQL을 직접 다룰 때 발생하는 문제점 코드의 반복작성  데이터베이스는 객체 구조와는 달리 데이터 중심의 구조를 갖는다. 객체를 데이터베이스에 CRUD 하기 위해서는 너무 많은 SQL 과 JDBC API 를 사용하여 변환작업을 직접 해주어야 한다.  SQL 에 의존적인 개발  객체들이 어떤 엔티티를 참조하고 있는지 DAO(데이터 접근 계층) 을 열어 SQL 를 확인해야만 한다. SQL 과 JDBC API 를 DAO 에 은닉화하였지만 논리적으로는 엔티티와 아주 강한 의존관계를 가지고 있다."/>
+
+    <meta property="og:title" content="[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개" />
+<meta property="og:description" content="김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+1.1 SQL을 직접 다룰 때 발생하는 문제점 코드의 반복작성  데이터베이스는 객체 구조와는 달리 데이터 중심의 구조를 갖는다. 객체를 데이터베이스에 CRUD 하기 위해서는 너무 많은 SQL 과 JDBC API 를 사용하여 변환작업을 직접 해주어야 한다.  SQL 에 의존적인 개발  객체들이 어떤 엔티티를 참조하고 있는지 DAO(데이터 접근 계층) 을 열어 SQL 를 확인해야만 한다. SQL 과 JDBC API 를 DAO 에 은닉화하였지만 논리적으로는 엔티티와 아주 강한 의존관계를 가지고 있다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/jpa-programming/1/page-1-1/" />
+<meta property="article:published_time" content="2018-12-09T17:53:39+09:00" />
+<meta property="article:modified_time" content="2018-12-09T17:53:39+09:00" />
+
+
+    <style type="text/css">
+        @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+        body {
+            font-family: 'Nanum Gothic';
+        }
+
+        h1 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-size: 1.6rem;
+        }
+        h2, h3, h4, h5, h6 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-weight: bold;
+        }
+
+        code {
+          color: #57cc8a;
+           
+           
+           
+          border-radius: .2em;
+          background: rgba(255,255,255,.1);
+        }
+      
+        pre code {
+          color:#f8f8f2;
+          background: #272821;
+          font-size: 1em;
+        }
+
+        .chroma {
+          background-color: #272821;
+        }
+        p img {
+          margin-left: auto; margin-right: auto; display: block;
+        }
+
+        .post-content {
+          font-size: .9em;
+        }
+        
+        .post-content .image-area {
+          font-size:0.8rem;
+          text-align:center 
+        }
+
+        strong {
+          color: #57cc8a;
+        }
+
+        hr {
+          margin-block-start: 1.5em;
+          margin-block-end: 1.5em;
+        }
+
+        table{
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+          border-bottom: 1px solid #ccc;
+          margin: 20px 10px;
+        }
+        table thead th {
+            width: 150px;
+            padding: 5px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #fff;
+            background: #0489B1;
+            margin: 20px 10px;
+        }
+        table tbody th {
+            width: 150px;
+            padding: 10px;
+        }
+        table td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        table .even {
+            background: #fdf3f5;
+        }
+
+        strong {
+          color : #0489B1;
+        } 
+
+        .gist .blob-wrapper.data {
+          max-height:700px;
+          overflow:auto;
+        }
+
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="riley" /></a>
+      <h1>@stoptheworld99</h1>
+      <p>걍 정리</p><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/jpa/">JPA</a><a class="tag" href="/tags/h2/">H2</a><a class="tag" href="/tags/spring/">spring</a><a class="tag" href="/tags/note/">note</a></div><br/>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.instagram.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Dec 9, 2018
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="/tags/jpa/">JPA</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<p><em>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리</em></p>
+
+<h2 id="1-1-sql을-직접-다룰-때-발생하는-문제점">1.1 SQL을 직접 다룰 때 발생하는 문제점</h2>
+
+<h3 id="코드의-반복작성"><strong>코드의 반복작성</strong></h3>
+
+<ul>
+<li>데이터베이스는 객체 구조와는 달리 데이터 중심의 구조를 갖는다.</li>
+<li>객체를 데이터베이스에 CRUD 하기 위해서는 너무 많은 SQL 과 JDBC API 를 사용하여 변환작업을 직접 해주어야 한다.</li>
+</ul>
+
+<h3 id="sql-에-의존적인-개발"><strong>SQL 에 의존적인 개발</strong></h3>
+
+<ul>
+<li>객체들이 어떤 엔티티를 참조하고 있는지 DAO(데이터 접근 계층) 을 열어 SQL 를 확인해야만 한다.</li>
+<li>SQL 과 JDBC API 를 DAO 에 은닉화하였지만 논리적으로는 엔티티와 아주 강한 의존관계를 가지고 있다.</li>
+</ul>
+
+<h3 id="jpa-와-문제해결"><strong>JPA 와 문제해결</strong></h3>
+
+<p>JPA 를 사용하면 객체를 데이터베이스에 저장하고 관리할 때, 개발자가 직접 SQL 을 작성하는 것이 아닌 JPA 가 제공하는 API 를 사용하면 된다.</p>
+
+<h4 id="jpa-저장기능">JPA 저장기능</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">jpa</span><span class="p">.</span><span class="na">persist</span><span class="p">(</span><span class="n">member</span><span class="p">);</span> <span class="o">//</span> <span class="n">저장</span></code></pre></div>
+<h4 id="jpa-조회기능">JPA 조회기능</h4>
+
+<p>JPA 는 객체와 매핑정보를 보고 적절한 SELECT SQL 을 생성하여 데이터베이스에 전달하고 그 결과를 Member 객체를 생성하여 반환한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="nf">memberId</span> <span class="o">=</span> <span class="s">&#34;id0001&#34;</span><span class="p">;</span>
+ <span class="n">Member</span> <span class="nf">member</span> <span class="o">=</span> <span class="n">jpa</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Member</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">memberId</span><span class="p">);</span> <span class="o">//</span> <span class="n">조회</span></code></pre></div>
+<h4 id="jpa-수정기능">JPA 수정기능</h4>
+
+<p>JPA 는 별도의 수정 메소드를 제공하지 않으며, 객체를 조회하여 값을 변경하면 트랜잭션을 커밋할때 데이터베이스에 적절한 UPDATE SQL 구문을 전달한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Member</span> <span class="nf">member</span> <span class="o">=</span> <span class="n">jpa</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Member</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">memberId</span><span class="p">);</span>
+ <span class="n">member</span><span class="p">.</span><span class="na">setName</span><span class="p">(</span><span class="s">&#34;이름변경&#34;</span><span class="p">);</span> <span class="o">//</span> <span class="n">수정</span></code></pre></div>
+<h4 id="연관된-객체-조회">연관된 객체 조회</h4>
+
+<p>JPA 는 연관된 객체를 사용하는 시점에 적절한 SELECT SQL 을 실행한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Member</span> <span class="nf">member</span> <span class="o">=</span> <span class="n">jpa</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Member</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">memberId</span><span class="p">);</span>
+ <span class="n">Team</span> <span class="nf">team</span> <span class="o">=</span> <span class="n">member</span><span class="p">.</span><span class="na">getTeam</span><span class="p">();</span> <span class="o">//</span> <span class="n">연관된</span> <span class="nf">객체</span> <span class="n">조회</span></code></pre></div>
+<hr />
+
+<h2 id="1-2-패러다임의-불일치">1.2 패러다임의 불일치</h2>
+
+<ul>
+<li>관계형 데이터 베이스는 데이터 중심으로 구조화되어 있고, 집합적인 사고를 요구한다. 그리고 객체지향의 추상화, 상속, 다형성 같은 개념이 없다.</li>
+<li>객체와 관계형 데이터베이스는 지향하는 목적이 서로 다르며 기능과 표현방법도 다르다. 이것을 <code>객체와 관계형 데이터베이스의 패러다임 불일치 문제</code>라 한다.</li>
+<li>패러다임 불일치 문제로 객체 구조를 테이블 구조에 저장하는 데에는 한계가 있다.</li>
+</ul>
+
+<h2 id="패러다임-불일치-문제들">패러다임 불일치 문제들</h2>
+
+<h3 id="상속"><strong>상속</strong></h3>
+
+<ul>
+<li>객체는 상속이라는 기능을 갖고 있지만 테이블은 상속이라는 기능이 없다.</li>
+
+<li><p>데이터베이스 모델링에서 슈퍼타입 서비타입 관계를 사용하면 객체 상속과 유사한 형태로 테이블을 설계 할 수 있다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 객체 모델 코드 
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="nf">class</span> <span class="n">Item</span> <span class="p">{</span>
+<span class="n">Long</span> <span class="nf">id</span><span class="p">;</span>
+<span class="n">String</span> <span class="nf">name</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">price</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nf">Album</span> <span class="kd">extends</span> <span class="nf">Item</span> <span class="p">{</span>
+<span class="n">String</span> <span class="nf">artist</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nf">Movie</span> <span class="kd">extends</span> <span class="nf">Item</span> <span class="p">{</span>
+<span class="n">String</span> <span class="nf">director</span><span class="p">;</span>
+<span class="n">String</span> <span class="nf">actor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nf">Book</span> <span class="kd">extends</span> <span class="nf">Item</span> <span class="p">{</span>
+<span class="n">String</span> <span class="nf">author</span><span class="p">;</span>
+<span class="n">String</span> <span class="nf">isbn</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div></li>
+</ul>
+
+<h4 id="데이터베이스와-객체모델의-상속-패러다임">데이터베이스와 객체모델의 상속 패러다임</h4>
+
+<ul>
+<li><code>Album</code> 객체를 저장하려면 <code>Item</code> 과 <code>Album</code> 객체에 대한 INSERT SQL 를 작성해야 하며 슈퍼타입 서브타입 모델링의 경우 부모객체에 자식타입을 저장해야한다.</li>
+<li><code>Album</code> 조회하려면 <code>Item</code> 과 <code>Album</code> 을 조인하여 조회 후 그 결과로 <code>Album</code> 를 생성해야 한다.</li>
+<li><strong>JPA 에서는 자바 컬렉션에 객체를 저장하듯이 JPA 에게 객체를 저장하면된다.</strong></li>
+</ul>
+
+<h3 id="연관관계"><strong>연관관계</strong></h3>
+
+<h4 id="객체">객체</h4>
+
+<ul>
+<li><code>참조</code>에 접근하여 연관된 객체를 조회한다.</li>
+<li>객체는 <strong>참조가 있는 방향으로만 조회</strong> 할 수 있다.</li>
+</ul>
+
+<h4 id="테이블">테이블</h4>
+
+<ul>
+<li><code>외래키와 조인</code>을 사용하여 다른 테이블과 연관관계를 가지고 조인을 사용하여 연관된 테이블을 조회한다.</li>
+</ul>
+
+<h4 id="데이터베스와-객체모델의-연관관계-패러다임">데이터베스와 객체모델의 연관관계 패러다임</h4>
+
+<ul>
+<li><p>JPA 개발자가 연관관계를 설정하면 JPA 에서 참조를 외래키를 변환하여 데이터베이스에 전달한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 회원과 팀 연관관계를 설정
+</span><span class="c1"></span><span class="n">member</span><span class="p">.</span><span class="na">setTime</span><span class="p">(</span><span class="n">team</span><span class="p">);</span>
+<span class="n">jpa</span><span class="p">.</span><span class="na">persist</span><span class="p">(</span><span class="n">member</span><span class="p">);</span> <span class="o">//</span> <span class="n">회원과</span> <span class="nf">연관관계</span> <span class="n">함께</span> <span class="nf">저장</span></code></pre></div></li>
+</ul>
+
+<h3 id="객체-그래프-탐색"><strong>객체 그래프 탐색</strong></h3>
+
+<ul>
+<li>SQL 을 직접 다루면 실행하는 SQL 에 따라 객체 그래프를 어디까지 탐색할 수 있는지 정해진다.</li>
+
+<li><p>모든 연관 객체 그래프를 조회하여 메모르에 올려두는 것 또한 현실성이 없으므로 회원을 조회하는 메소드를 상황에 따라 여러벌 작성해야 한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 객체 그래프를 탐색할 수 있을지 없을 시 코드만 보고는 예측할 수 없다.
+</span><span class="c1"></span><span class="kd">class</span> <span class="nf">MemberService</span> <span class="p">{</span>
+<span class="p">...</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">process</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">Member</span> <span class="nf">member</span> <span class="o">=</span> <span class="n">memberDAO</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">memberId</span><span class="p">);</span>
+    <span class="n">memberId</span><span class="p">.</span><span class="na">getTema</span><span class="p">();</span> <span class="c1">// member-&gt;team 객체 그래프 탐색이 가능한가?
+</span><span class="c1"></span>    <span class="n">member</span><span class="p">.</span><span class="na">getOrder</span><span class="p">().</span><span class="na">getDelivery</span><span class="p">()</span> <span class="c1">// ???
+</span><span class="c1"></span><span class="p">}</span>    
+<span class="p">}</span>
+
+<span class="c1">// 상황에 따라 여러벌 작성해야 한다.?!!
+</span><span class="c1"></span><span class="n">memberDAO</span><span class="p">.</span><span class="na">getMember</span><span class="p">();</span>  <span class="c1">// Member 조회
+</span><span class="c1"></span><span class="n">memberDAO</span><span class="p">.</span><span class="na">getMemberWithTeam</span><span class="p">();</span> <span class="c1">// Member 와 Team 조회
+</span><span class="c1"></span><span class="n">memberDAO</span><span class="p">.</span><span class="na">getMemberWithOrderWithDeliver</span><span class="p">();</span> <span class="o">//</span> <span class="n">Member</span> <span class="nf">와</span> <span class="n">Order</span> <span class="nf">와</span> <span class="n">Delivery</span> <span class="nf">조회</span></code></pre></div></li>
+</ul>
+
+<h4 id="jpa-와-객체-그래프-탐색">JPA 와 객체 그래프 탐색</h4>
+
+<ul>
+<li>JPA 는 연관된 객체를 사용하는 시점에 적절한 SELECT SQL 을 실행한다. 실제 객체를 사용하는 시점까지 조회를 미룬다고 하여 <code>지연로딩</code> 이라 한다.</li>
+<li>JPA 는 지연 로딩을 <code>투명(transparent)</code> 하게 처리한다.</li>
+<li>JPA 는 연관 객체를 즉시 함께 조회할 것인지 사용되는 시점에서 지연하여 조회할지 간단하게 설정할 수 있다.</li>
+</ul>
+
+<h3 id="비교"><strong>비교</strong></h3>
+
+<ul>
+<li><code>동일성 비교(idnetity)</code> : == 비교이며, 객체 인스턴스의 참조 값(주소)을 비교한다.</li>
+<li><code>동등성 비교(equals)</code> : 메서드를 사용하여 객체 내부의 값을 비교한다.</li>
+</ul>
+
+<h4 id="jpa-와-비교">JPA 와 비교</h4>
+
+<ul>
+<li><p>JPA 는 같은 트랜잭션일 때 같은 객체가 조회되는 것을 보장한다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// JPA 비교
+</span><span class="c1"></span><span class="n">String</span> <span class="nf">memberId</span> <span class="o">=</span> <span class="s">&#34;100&#34;</span><span class="p">;</span>
+<span class="n">Member</span> <span class="nf">member1</span> <span class="o">=</span> <span class="n">jpa</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">memberId</span><span class="p">);</span>
+<span class="n">Member</span> <span class="nf">member2</span> <span class="o">=</span> <span class="n">jpa</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">memberId</span><span class="p">);</span>
+
+<span class="n">member1</span> <span class="o">==</span> <span class="n">member2</span><span class="p">;</span> <span class="o">//</span> <span class="n">같다</span><span class="p">.</span></code></pre></div></li>
+</ul>
+
+<h2 id="정리">정리</h2>
+
+<ul>
+<li>객체 모델과 관계형 데이터베이스 모델은 지향하는 패러다임이 서로 다르다.</li>
+<li>JPA 는 이러한 패러다임의 불일치 문제를 해결해주고 정교한 객체 모델링을 유지하게 도와준다</li>
+</ul>
+
+<hr />
+
+<h2 id="1-3-jpa-란-무엇인가">1.3 JPA 란 무엇인가.</h2>
+
+<ul>
+<li><strong>JPA <code>Java Persistence API</code></strong> 는 자바 진영의 ORM 기술 표준이다.</li>
+<li><strong>ORM <code>Object-Relationship Mapping</code></strong> 은 객체와 관계형 데이터베이스를 매핑하며, 단순히 CRUD 를 제공하는 것 뿐만아니라 ORM 프레임워크는 <em>객체와 테이블을 매핑해서 패러다임의 불일치 문제를 개발자 대신 해결</em> 해준다.</li>
+</ul>
+
+<h3 id="1-3-1-jpa-소개">1.3.1 JPA 소개</h3>
+
+<ul>
+<li>JPA 는 자바 ORM 기술에 대한 API 표준 명세이다. (쉽게 말하면, 인터페이스를 모아 둔 것)</li>
+<li>JPA 2.1 을 구현한 구현체로는 <code>Hibernate</code>, <code>EclipseLink</code>, <code>DataNucleus</code> 이며 이중 <code>Hibernate</code> 가 가장 대중적이다.</li>
+</ul>
+
+<h3 id="1-3-2-jpa-를-사용해야-하는-이유">1.3.2 JPA 를 사용해야 하는 이유</h3>
+
+<h4 id="생산성">생산성</h4>
+
+<ul>
+<li>SQL 을 작성하고 JDBC API 를 사용하는 지루하고 반복적인 CRUD SQL 을 개발자가 직접 작성하지 않아도 된다.</li>
+</ul>
+
+<h4 id="유지보수">유지보수</h4>
+
+<ul>
+<li>필드 추가나 수정 삭제 시에도 개발자가 작성해야 했던 SQL 과 JDBC API 코드를 JPA 가 대신 처리함으로 유지보수 해야하는 코드 수가 줄어든다.</li>
+<li>객체 지향 모델의 장점들을 활용하여 유연하고 유지보수하기 좋은 도메인 모델을 설계할 수 있다.</li>
+</ul>
+
+<h4 id="패러다임의-불일치-해결">패러다임의 불일치 해결</h4>
+
+<ul>
+<li>JPA 는 객체와 관계형 모델 간 패러다임의 불일치 (상속, 연관관계, 객체 그래프 탐색, 비교) 문제를 해결</li>
+</ul>
+
+<h4 id="성능">성능</h4>
+
+<ul>
+<li>JPA 는 어플리케이션과 데이터베이스 사이에 다양한 성능 최적화 기능을 제공한다.</li>
+<li>하이버네이트의 경우 SQL 힌트를 넣을 수 있는 기능도 제공한다.</li>
+</ul>
+
+<h4 id="데이터-접근-추상화와-벤더-독립성">데이터 접근 추상화와 벤더 독립성</h4>
+
+<ul>
+<li>관계형 데이터베이스는 같은 기능도 벤더마다 사용법이 다른 경우가 존재한다. JPA 는 애플리케이션과 데이터 베이스 사이에 추상화된 데이터 접근 계층을 제공하여, 특정 DBMS 에 종속되지 않도록 한다.</li>
+</ul>
+
+<h3 id="표준">표준</h3>
+
+<ul>
+<li>JPA 는 자바 진영의 ORM 기술 표준으로, 표준을 사용하면 다른 구현 기술로 손쉽게 변경할 수 있다.</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

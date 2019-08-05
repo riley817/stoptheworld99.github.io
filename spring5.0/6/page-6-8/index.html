@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko-kr">
+  <head>
+    <title>[스프링 5.0 마스터] 6.8 캐싱 // @stoptheworld99</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="riley" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[스프링 5.0 마스터] 6.8 캐싱"/>
+<meta name="twitter:description" content="캐싱  캐싱은 많은 시간이나 연산이 필요한 일데 대한 결과를 저장해 두는 것 이라고 할 수 있다. 서비스의 데이터 캐싱은 어플리케이션의 성능과 확장성을 향상시키는데 중요한 역할을 한다. 스프링은 어노테이션에 기반을 둔 캐싱 추상화를 제공한다. JSR-107(JCahce) 구현체 들은 모두 지원한다. EhCache, Hazelcast, Infinispan, Couchbase, Redis 등이 기본적으로 자동설정에 포함되어 있다.  스프링 부트 프로젝트에 캐싱 적용하기  1. 의존성 추가 spring-boot-starter-cache 를 pom.xml 또는 build.gradle 에 추가한다. 이 의존모듈을 추가하면 JSR-107 및 스프링 캐싱 어노테이션을 사용하는데 필요한 의존성이 생긴다."/>
+
+    <meta property="og:title" content="[스프링 5.0 마스터] 6.8 캐싱" />
+<meta property="og:description" content="캐싱  캐싱은 많은 시간이나 연산이 필요한 일데 대한 결과를 저장해 두는 것 이라고 할 수 있다. 서비스의 데이터 캐싱은 어플리케이션의 성능과 확장성을 향상시키는데 중요한 역할을 한다. 스프링은 어노테이션에 기반을 둔 캐싱 추상화를 제공한다. JSR-107(JCahce) 구현체 들은 모두 지원한다. EhCache, Hazelcast, Infinispan, Couchbase, Redis 등이 기본적으로 자동설정에 포함되어 있다.  스프링 부트 프로젝트에 캐싱 적용하기  1. 의존성 추가 spring-boot-starter-cache 를 pom.xml 또는 build.gradle 에 추가한다. 이 의존모듈을 추가하면 JSR-107 및 스프링 캐싱 어노테이션을 사용하는데 필요한 의존성이 생긴다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/spring5.0/6/page-6-8/" />
+
+
+
+    <style type="text/css">
+        @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+        body {
+            font-family: 'Nanum Gothic';
+        }
+
+        h1 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-size: 1.6rem;
+        }
+        h2, h3, h4, h5, h6 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-weight: bold;
+        }
+
+        code {
+          color: #57cc8a;
+           
+           
+           
+          border-radius: .2em;
+          background: rgba(255,255,255,.1);
+        }
+      
+        pre code {
+          color:#f8f8f2;
+          background: #272821;
+          font-size: 1em;
+        }
+
+        .chroma {
+          background-color: #272821;
+        }
+        p img {
+          margin-left: auto; margin-right: auto; display: block;
+        }
+
+        .post-content {
+          font-size: .9em;
+        }
+        
+        .post-content .image-area {
+          font-size:0.8rem;
+          text-align:center 
+        }
+
+        strong {
+          color: #57cc8a;
+        }
+
+        hr {
+          margin-block-start: 1.5em;
+          margin-block-end: 1.5em;
+        }
+
+        table{
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+          border-bottom: 1px solid #ccc;
+          margin: 20px 10px;
+        }
+        table thead th {
+            width: 150px;
+            padding: 5px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #fff;
+            background: #0489B1;
+            margin: 20px 10px;
+        }
+        table tbody th {
+            width: 150px;
+            padding: 10px;
+        }
+        table td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        table .even {
+            background: #fdf3f5;
+        }
+
+        strong {
+          color : #0489B1;
+        } 
+
+        .gist .blob-wrapper.data {
+          max-height:700px;
+          overflow:auto;
+        }
+
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="riley" /></a>
+      <h1>@stoptheworld99</h1>
+      <p>걍 정리</p><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/jpa/">JPA</a><a class="tag" href="/tags/h2/">H2</a><a class="tag" href="/tags/spring/">spring</a><a class="tag" href="/tags/note/">note</a></div><br/>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.instagram.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">[스프링 5.0 마스터] 6.8 캐싱</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="/tags/spring/">spring</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<hr />
+
+<h2 id="캐싱">캐싱</h2>
+
+<ul>
+<li>캐싱은 <strong>많은 시간이나 연산이 필요한 일데 대한 결과를 저장해 두는 것</strong> 이라고 할 수 있다.</li>
+<li>서비스의 데이터 캐싱은 어플리케이션의 성능과 확장성을 향상시키는데 중요한 역할을 한다.</li>
+<li>스프링은 어노테이션에 기반을 둔 캐싱 추상화를 제공한다.</li>
+<li><code>JSR-107(JCahce)</code> 구현체 들은 모두 지원한다.</li>
+<li><code>EhCache</code>, <code>Hazelcast</code>, <code>Infinispan</code>, <code>Couchbase</code>, <code>Redis</code> 등이 기본적으로 자동설정에 포함되어 있다.</li>
+</ul>
+
+<h2 id="스프링-부트-프로젝트에-캐싱-적용하기">스프링 부트 프로젝트에 캐싱 적용하기</h2>
+
+<blockquote>
+<h3 id="1-의존성-추가">1. 의존성 추가</h3>
+
+<p><code>spring-boot-starter-cache</code> 를 <code>pom.xml</code> 또는 <code>build.gradle</code> 에 추가한다. 이 의존모듈을 추가하면 <code>JSR-107</code> 및 스프링 캐싱 어노테이션을 사용하는데 필요한 의존성이 생긴다.</p>
+
+<h4 id="pom-xml">pom.xml</h4>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-cache<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></div>
+<h4 id="build-gradle">build.gradle</h4>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span><span class="o">(</span><span class="s1">&#39;org.springframework.boot:spring-boot-starter-cache&#39;</span><span class="o">)</span></code></pre></div>
+<h3 id="2-캐싱-활성화">2. 캐싱 활성화</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@EnableCaching</span> <span class="c1">// 어플리케이션에서 캐싱을 가능하게 설정한다. 
+</span><span class="c1"></span><span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">Chapter06Application</span> <span class="p">{</span></code></pre></div>
+<h3 id="3-데이터-캐싱하기">3. 데이터 캐싱하기</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Cacheable</span><span class="p">(</span><span class="s">&#34;todos&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">List</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="nf">retrieveTodos</span><span class="p">(</span><span class="n">String</span> <span class="nf">user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="nf">filteredTodos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Todo</span> <span class="nf">todo</span> <span class="o">:</span> <span class="n">todos</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">todo</span><span class="p">.</span><span class="na">getUser</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">user</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">filteredTodos</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">filteredTodos</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nd">@Cacheable</span><span class="p">(</span><span class="n">cacheNames</span> <span class="o">=</span> <span class="s">&#34;todos&#34;</span><span class="p">,</span> <span class="n">condition</span> <span class="o">=</span> <span class="s">&#34;#user.length &lt; 10&#34;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nf">Todo</span> <span class="n">retrieveTodo</span><span class="p">(</span><span class="kt">int</span> <span class="nf">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">Todo</span> <span class="nf">todo</span> <span class="o">:</span> <span class="n">todos</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">todo</span><span class="p">.</span><span class="na">getId</span><span class="p">()</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">todo</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div></blockquote>
+
+<ul>
+<li><code>@CachePut</code> : 데이터를 캐시에 명시적으로 추가하는데 사용된다.</li>
+<li><code>@CacheEvict</code> : 캐시에서 오래된 데이터를 제거하는데 사용된다.</li>
+<li><code>@Caching</code> : 여러 개의 중첩된 <code>@Cacheable</code>, <code>@Cacheput</code>, <code>@CacheEvict</code> 어노테이션을 동일한 메서드에서 사용할 수 있다.</li>
+</ul>
+
+<h2 id="jsr-107-캐싱-어노테이션">JSR-107 캐싱 어노테이션</h2>
+
+<ul>
+<li>JSR-107 의 목표는 캐싱 어노테이션을 표준화 하는것.</li>
+<li>스프링 캐싱 어노테이션과 JSR-107 이 제공하는 기능은 유사하다.</li>
+<li>동일한 프로젝트에서 둘다 사용해서는 안된다.</li>
+</ul>
+
+<h3 id="주요-jsr-107-어노테이션"><em>주요 JSR-107 어노테이션</em></h3>
+
+<ul>
+<li><code>@CacheResult</code> : @Cacheable 과 유사하다.</li>
+<li><code>@CacheRemove</code> : @CacheEvit 와 유사하다. @CacheRemove 는 예외가 발생한 경우 조건부 제거를 지원한다.</li>
+<li><code>@CacheRemoveAll</code> : @CacheEvict 와 유사 (allEntries = true) 캐시에서 모든 항목을 제거하는데 사용된다.</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="description" content="">
+<meta name="author" content="riley">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>1. JPA 소개 :: @stoptheworld99</title>
+
+    
+    <link href="/css/nucleus.css?1551596328" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1551596328" rel="stylesheet">
+    <link href="/css/hybrid.css?1551596328" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1551596328" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1551596328" rel="stylesheet">
+    <link href="/css/auto-complete.css?1551596328" rel="stylesheet">
+    <link href="/css/theme.css?1551596328" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1551596328" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1551596328"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> 
+<style type="text/css">
+    
+    @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+    body {
+        font-family: 'Nanum Gothic';
+    }
+
+    h1 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.3rem;
+    }
+    h2, h3, h4, h5, h6 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 2rem 0 0.75rem 0;
+    }
+
+    h5 {
+        margin: 1.5rem 0 0.2rem 0;
+        font-size: 1.1rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    #chapter h2 {
+        color: #222;
+        text-align: center;
+
+    }
+
+    #chapter h3 {
+        font-family: "Nanum Gothic", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    }
+
+    #chapter p {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    pre {
+        margin:0.5rem 0 2rem 0;
+    }
+
+    div.notices p {
+        font-size: 0.8rem;
+    }
+
+    section strong {
+        font-weight: bold;
+    }
+    
+    article section.page h1:first-of-type {
+        font-family:  "Godo", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.8rem;
+    }
+
+    article section.page pre {
+        background-color: #272822 ;
+        color: #f8f8f2; 
+    }
+
+    article section.page p code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+
+    article section.page ul li code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+</style>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body class="" data-url="/notes/jpa-programming/1/page-1-1/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <i class="fab fa-github-alt" style="font-size:3rem;"></i> 
+<br/>
+RILEY (@stoptheworld99)
+<br/>
+개발블로그
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1551596328"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1551596328"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1551596328"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/" title="Notes" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/">
+          <i class='fas fa-book-open'></i>  Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/" title="Mastering Spring 5.0" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/">
+          <i class='fas fa-leaf'></i>  Mastering Spring 5.0
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/6/" title="6. 마이크로서비스 확장" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/6/">
+          6. 마이크로서비스 확장
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-1/" title="6.1 예외처리" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-1/">
+        6.1 예외처리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-2/" title="6.2 HATEOAS" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-2/">
+        6.2 HATEOAS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-3/" title="6.3 Bean Validation" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-3/">
+        6.3 Bean Validation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-4/" title="6.4 Swagger" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-4/">
+        6.4 Swagger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-5/" title="6.5 Spring Security - Basic authentication" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-5/">
+        6.5 Spring Security - Basic authentication
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-6/" title="6.6 Spring Security - OAuth 2.0" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-6/">
+        6.6 Spring Security - OAuth 2.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-7/" title="6.7 국제화" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-7/">
+        6.7 국제화
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-8/" title="6.8 캐싱" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-8/">
+        6.8 캐싱
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/13/" title="13. 리액티브 프로그래밍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/13/">
+          13. 리액티브 프로그래밍
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-1/" title="13.1 Reactive Programming" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-1/">
+        13.1 Reactive Programming
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-2/" title="13.2 Spring Reactive - 1" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-2/">
+        13.2 Spring Reactive - 1
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-3/" title="13.2 Spring Reactive - 2" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-3/">
+        13.2 Spring Reactive - 2
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/jpa-programming/" title="자바 ORM 표준 JPA Programming" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/jpa-programming/">
+          <i class='fas fa-cogs'></i> 자바 ORM 표준 JPA Programming
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-1/" title="1. JPA 소개" class="dd-item active">
+        <a href="/notes/jpa-programming/1/page-1-1/">
+        1. JPA 소개
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-2/" title="2. JPA 시작" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-2/">
+        2. JPA 시작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-3/" title="3. 영속성 관리" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-3/">
+        3. 영속성 관리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/" title="Elasticsearch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/">
+          Elasticsearch
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/1/" title="1 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/1/">
+          1 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-1/" title="Basic Concepts" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-1/">
+        Basic Concepts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-1/" title="Basic Concepts - Shard" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-1/">
+        Basic Concepts - Shard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-2/" title="Distributed Cluster" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-2/">
+        Distributed Cluster
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-3/" title="Basic Concepts - Segment" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-3/">
+        Basic Concepts - Segment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-4/" title="Install Elasticsearch with RPM" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-4/">
+        Install Elasticsearch with RPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-5/" title="Installation with .zip/.tar.gz" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-5/">
+        Installation with .zip/.tar.gz
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-6/" title="Installation Kibana" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-6/">
+        Installation Kibana
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/2/" title="2 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/2/">
+          2 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-1/" title="Elasticsearch 기본 동작" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-1/">
+        Elasticsearch 기본 동작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-2/" title="Plugin Installation" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-2/">
+        Plugin Installation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-3/" title="Head" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-3/">
+        Head
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-4/" title="Elastic-HQ" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-4/">
+        Elastic-HQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-5-1/" title="Elasticsearch Plugins" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-5-1/">
+        Elasticsearch Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/3/" title="3 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/3/">
+          3 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-1/" title="Configuring Elasticsearch" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-1/">
+        Configuring Elasticsearch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-2/" title="elasticsearch.yml" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-2/">
+        elasticsearch.yml
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-3/" title="jvm.options" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-3/">
+        jvm.options
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-4/" title="log4j2.properties" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-4/">
+        log4j2.properties
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-5/" title="그 외 설정" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-5/">
+        그 외 설정
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="/notes"><i class='fa fa-book-open'></i> <label>Notes</label></a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='' href="https://stoptheworld99.github.io/notes/JPA%20Programming/1/page-1-1.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text"></span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                   1. JPA 소개 
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
+
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+
+
+
+<h2 id="1-jpa-소개">1. JPA 소개</h2>
+
+<h4 id="1-1-sql을-직접-다룰-때-발생하는-문제점">1.1 SQL을 직접 다룰 때 발생하는 문제점</h4>
+
+<hr />
+
+<ul>
+<li><strong>코드의 반복 작성</strong> : SQL 과 JDBC API 객체연결 코드를 반복 작성해야한다.</li>
+<li>객체와 데이터 접근객체 (DAO) 의 진정한 의미의 계층 분할이 어렵다.</li>
+<li>엔티티를 신뢰할 수 없다.</li>
+<li>SQL 에 의존적인 개발을 피하기 어렵다.</li>
+</ul>
+
+<h4 id="1-2-패러다임의-불일치">1.2 패러다임의 불일치</h4>
+
+<hr />
+
+<ul>
+<li>관계형 데이터 베이스는 데이터 중심으로 구조화. 집합적인 사고를 요구. 객체지향의 추상화, 상속, 다형성 같은 개념이 없다.</li>
+<li>객체와 관계형 데이터베이스는 지향하는 목적이 서로 다르며 기능과 표현방법도 다르다. 이것을 <code>객체와 관계형 데이터베이스의 패러다임 불일치 문제</code>라 한다.</li>
+</ul>
+
+<h5 id="패러다임-불일치-문제들">패러다임 불일치 문제들</h5>
+
+<h5 id="1-상속">1) 상속</h5>
+
+<ul>
+<li>객체에는 상속이라는 기능이 존재하나 테이블은 상속이라는 기능이 없다.</li>
+</ul>
+
+<h5 id="2-연관관계">2) 연관관계</h5>
+
+<ul>
+<li>객체 : <code>참조</code>에 접근하여 연관된 객체를 조회한다.</li>
+<li>테이블 : <code>외래키와 조인</code>을 사용하여 연관된 테이블을 조회한다.</li>
+</ul>
+
+<h5 id="3-객체-그래프-탐색">3) 객체 그래프 탐색</h5>
+
+<ul>
+<li>SQL 을 직접 다루면 처음 실행하는 SQL 에 따라 객체 그래프를 어디까지 탐색할 수 있는지 정해진다.</li>
+<li>JPA 는 연관된 객체를 사용하는 시점에 적절한 SELECT SQL 을 실행한다. (지연로딩)</li>
+<li>JPA 는 지연 로딩을 투명(transparent) 하게 처리한다.</li>
+</ul>
+
+<h5 id="4-비교">4) 비교</h5>
+
+<ul>
+<li><code>동일성 비교(idnetity)</code> 는 == 비교이며, 객체 인스턴스의 참조 값을 비교한다.</li>
+<li><code>동등성 비교(equals)</code> 메서드를 사용하여 객체 내부의 값을 비교한다.</li>
+<li><strong>JPA 는 같은 트랜잭션 일때 같은 객체가 조회되는 것을 보장한다.</strong></li>
+</ul>
+
+<h4 id="정리">정리</h4>
+
+<hr />
+
+<ul>
+<li>객체 모델과 관계형 데이터베이스 모델은 지향하는 패러다임이 서로 다르다.</li>
+<li>JPA 는 이러한 패러다임의 불일치 문제를 해결해주고 정교한 객체 모델링을 유지하게 도와준다</li>
+</ul>
+
+<h4 id="1-3-jpa-란-무엇인가">1.3 JPA 란 무엇인가.</h4>
+
+<hr />
+
+<p>JPA (Java Persistence API) 는 자바 진영의 ORM 기술 표준이다.
+&lt;그림&gt;</p>
+
+<p>ORM (Object-Relationship Mapping) 은 객체와 관계형 데이터베이스를 매핑한다는 뜻이다.</p>
+
+<ul>
+<li>단순히 CRUD 를 제공하는 것 뿐만아니라 ORM 프레임워크는 객체와 테이블을 매핑해서 패러다임의 불일치 문제를 개발자 대신 해결해준다.</li>
+</ul>
+
+<h5 id="jpa-소개">JPA 소개</h5>
+
+<p>&lt;그림&gt;
++ JPA 는 자바 ORM 기술에 대한 API 표준 명세이다. (쉽게 말하면, 인터페이스를 모아 둔 것)
++ JPA 2.1 을 구현한 구현체로는 Hibernate, EclipseLink, DataNucleus 이며 이중 Hibernate 가 가장 대중적이다.</p>
+
+<h5 id="jpa-를-사용해야-하는-이유">JPA 를 사용해야 하는 이유</h5>
+
+<ol>
+<li>생산성</li>
+<li>SQL 을 작성하고 JDBC API 를 사용하는 지루하고 반복적인 CRUD SQL 을 개발자가 직접 작성하지 않아도 된다.</li>
+<li>유지보수</li>
+<li>필드 추가나 수정 삭제 시에도 개발자가 작성해야 했던 SQL 과 JDBC API 코드를 JPA 가 대신 처리함으로 유지보수 해야하는 코드 수가 줄어든다.</li>
+
+<li><p>객체 지향 모델의 장점들을 활용하여 유연하고 유지보수하기 좋은 도메인 모델을 설계할 수 있다.</p></li>
+
+<li><p>패러다임의 불일치 해결</p></li>
+
+<li><p>JPA 는 객체와 관계형 모델 간 패러다임의 불일치 (상속, 연관관계, 객체 그래프 탐색, 비교) 문제를 해결</p></li>
+
+<li><p>성능</p></li>
+
+<li><p>같은 트랙잭션 안에서 같은 객체 (같은 테이블)</p></li>
+
+<li><p>데이터 접근 추상화와 벤더 독립성</p></li>
+
+<li><p>관계형 데이터베이스는 같은 기능도 벤더마다 사용법이 다른 경우가 존재한다. JPA 는 애플리케이션과 데이터 베이스 사이에 추상화된 데이터 접근 계층을 제공하여, 특정 DBMS 에 종속되지 않도록 한다.</p></li>
+
+<li><p>표준</p></li>
+
+<li><p>JPA 는 자바 진영의 ORM 기술 표준으로, 표준을 사용하면 다른 구현 기술로 손쉽게 변경할 수 있다.</p></li>
+</ol>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+            </div> 
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1551596329"></script>
+    <script src="/js/jquery.sticky.js?1551596329"></script>
+    <script src="/js/featherlight.min.js?1551596329"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1551596329"></script>
+    <script src="/js/highlight.pack.js?1551596329"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1551596329"></script>
+    <script src="/js/learn.js?1551596329"></script>
+    <script src="/js/hugo-learn.js?1551596329"></script>
+
+    <link href="/mermaid/mermaid.css?1551596329" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1551596329"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

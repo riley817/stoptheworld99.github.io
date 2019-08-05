@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>@stoptheworld99</title>
+    <link>/</link>
+    <description>Recent content on @stoptheworld99</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 09 Dec 2018 17:53:39 +0900</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2. 시퀀스</title>
+      <link>/fluent-python/2/page-2-1/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/fluent-python/2/page-2-1/</guid>
+      <description>2. Sequence 시퀀스 (Sequence) 란 데이터에 순번을 붙여 나열한 데이터들의 집합을 의미한다. 값이 연속적으로 이어져 있는 자료형을 시퀀스 자료형 이라고 한다. 배열처럼 특정 위치의 데이터를 가리킬 수 있다는 특징이 있다.
+2.1 내장 시퀀스 개요 2.1.1 컨테이너 시퀀스와 균일 시퀀스 컨테이너 시퀀스 (container sequence)  객체에 대한 참조를 담고 있다. 객체에 대한 참조를 담고 있으므로 서로 다른 자료형의 항목을 담을 수 있다. list, tuple, collections.deque 형  균일 시퀀스 (flat sequence)  객체에 대한 참조 대신 메모리 공간에 각 항목의 값을 직접 담는다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.1 개념 및 용어 정리 - Document, Index, Type, Cluster, Node</title>
+      <link>/elasticsearch/1/page-1-1/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-1/</guid>
+      <description>Document  도큐먼트는 JSON (Javascript Object Notation) 형태의 Elasticsearch 의 기본 저장단위 이다. 관계형 데이터 베이스의 Row 와 비슷한 개념으로 볼 수 있다. 도큐먼트는 데이터에 적재될 때 Document ID 를 갖는다. Document ID 는 지정하지 않으면 랜덤하게 생성 되며, 사용자가 정의한 값으로도 생성 가능하다. Document ID 는 데이터를 찾아가는 Metadata 로 볼 수 있다.  Index  Index 는 비슷한 형질을 가지는 도큐먼트 간의 집합이다. 관계형 데이터 베이스의 Database 와 비슷한 개념으로 볼 수 있다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.2 개념 및 용어 정리 - Shard</title>
+      <link>/elasticsearch/1/page-1-2/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-2/</guid>
+      <description>1.Shard  Shard 란 인덱스의 데이터를 나누는 단위 이다. 인덱스는 무한한 양의 데이터가 저장이 가능하다. 그래서 인덱스 데이터가 단일 노드의 하드웨어의 용량을 초과하여 더이상 데이터를 저장할 수 없거나 혹은 CPU, Memory 의 자원 초과로 인덱싱이나 검색의 성능 저하를 발생시킬 수 있다. 이러한 문제를 해결하기 위하여 인덱스를 수 많은 조각으로 나누어 관리한다.
+ 샤딩을 함으로써  콘텐츠 볼륨의 수평(Horizontal) 분할 및 확장이 가능하다. (관계형 데이터베이스처럼 컬럼별로 나누는 것이 아닌 횡별로 나누어 샤드에 저장.</description>
+    </item>
+    
+    <item>
+      <title>11.2 Spring Reactive - 1</title>
+      <link>/spring5.0/11/page-11-2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/11/page-11-2/</guid>
+      <description>11.2 Spring Reactive - 1 1. 리액티브 스트림 1.1 리액티브 스트림 의존성 추가 implementation (&amp;#39;org.reactivestreams:reactive-streams:1.0.2&amp;#39;) implementation (&amp;#39;org.reactivestreams:reactive-streams-tck:1.0.2&amp;#39;) 1.2 리액티브 스트림의 구성요소  Publisher : 데이터 제공자. 구독한 구독자들에게 구독 정보를 토대로 데이터를 제공한다. Subscriber : 데이터 소모자. 제공자로부터 데이터를 받아 소모한다. Subscription : 구독 정보. Subscriber 는 Publisher 를 구독하여 데이터(n) 요청할 수 있다.
+// Publisher package org.reactivestreams; public interface Publisher&amp;lt;T&amp;gt; { void subscribe(Subscriber&amp;lt;? super T&amp;gt; var1); } // Subscriber package org.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.3 클러스터 분산구성 시나리오</title>
+      <link>/elasticsearch/1/page-1-3/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-3/</guid>
+      <description>1. 단일 노드에 3개의 샤드로 클러스터 구성하기 curl 을 통하여 blogs 라는 인덱스에 3 개의 Primary 샤드와 1개의 Replica 샤드가 운용되도록 할당한다.
+curl -X PUT &amp;#34;localhost:9200/blogs&amp;#34; -H &amp;#39;Content-Type: application/json&amp;#39; -d { &amp;#34;settings&amp;#34; : { &amp;#34;number_of_shards&amp;#34; : 3, &amp;#34;number_of_replicas&amp;#34; : 1 } } [그림] 샤드의 개수는 3이고 레플리카 개수는 1개인 단일 노드
+ 클러스터는 정상적으로 작동되나, 하드웨어의 오류가 발생할 경우 데이터 손실의 위험이 있다. 데이터 적재량이 많을 경우 싱글노드가 허용하는 볼륨을 모두 소진할 수도 있어 더이상 적재가 불가능 할 수도 있다.</description>
+    </item>
+    
+    <item>
+      <title>log4j2.properties</title>
+      <link>/elasticsearch/3/page-3-4/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-4/</guid>
+      <description> log4j2.properties Elasticsearch 는 logging 을 위해 Log4j 2 를 사용합니다. Log4j 2는 log4j2.properties 파일을 사용하여 구성할 수 있습니다.
+로그참조 파일 ${sys:es.logs.base_path}  로그의 Base 디렉토리 입니다. elasticsearch.yml 의 path.log 에 설정된 경로 입니다.  ${sys:es.logs.cluster_name}  클러스트 이름을 나타냅니다. elasticsearch.yml 의 cluster.name 으로 설정할 수 있습니다.  ${sys:es.logs.node_name}  노드의 이름을 나타냅니다. elasticsearch.yml 의 node.name 으로 설정할 수 있습니다.   ex) ${sys:es.logs.base_path}${sys:file.separator}${sys:es.logs.cluster_name}.log /var/log/elasticsearch/mycluster.log
+ </description>
+    </item>
+    
+    <item>
+      <title>11.3 Spring Reactive - 2</title>
+      <link>/spring5.0/11/page-11-3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/11/page-11-3/</guid>
+      <description>11.2 Spring Reactive - 2 3. 스프링 웹 리액티브 스프링 웹 리액티브는 스프링 프레임워크 5 의 새로운 기능 중 하나이다. 이 기능은 웹 애플리케이션의 리액티브 기능을 제공한다. 스프링 웹 리액티브는 스프링 MVC 와 동일한 기본 프로그래밍 모델을 기반으로 한다.
+3.1 웹 리액티브 스트림 의존성 추가 implementation (&amp;#39;org.springframework.boot:spring-boot-starter-webflux&amp;#39;) 3.2 리액티브 컨트롤러 생성 @RestController public class StockPriceEventController { @GetMapping(&amp;#34;/stocks/price/{stockCode}&amp;#34;) Flux&amp;lt;String&amp;gt; retrieveStockPriceHardcoded(@PathVariable(&amp;#34;stockCode&amp;#34;) String stockCode) { return Flux.interval(Duration.ofSeconds(5)) .map(l -&amp;gt; getCurrentDate() +&amp;#34; : &amp;#34; + getRandomNumber(100, 125)).</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.4 개념 및 용어정리 - Inverted Index, Segment</title>
+      <link>/elasticsearch/1/page-1-4/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-4/</guid>
+      <description>1. Inverted Index 전통적인 데이터베이스는 필드당 하나의 값을 저장하기 때문에 전체 텍스트 검색에는 적합하지 않다. 즉 다중 값을 색인화 할 수 있어야 하는데, Elasticsearch 에서는 Inverted Index 형태의 인덱싱을 통해 Full-text Search 가 가능하도록 했다. 모든 문서에서 발생하는 모든 고유 값 또는 용어의 정렬된 목록을 포함하며, 각 용어에 대해 이를 포함하는 모든 문서 목록을 표시한다.
+Full-text Search (전체 텍스트 검색) 는 요청한 모든 단어를 문서 또는 데이터베이스에서 모든 단어와 비교하는 포괄적 인 검색 방법이다.</description>
+    </item>
+    
+    <item>
+      <title>그 외 설정</title>
+      <link>/elasticsearch/3/page-3-5/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-5/</guid>
+      <description>Other Settings vi /etc/security/limits.conf Elasticsearch 는 많은 파일을 쓰거나 핸들링 하게 됩니다. 열 수 있는 File Descriptor 가 부족하면 데이터의 손실로 이어질 수 있으며 실행할 수 있는 최대 File Descriptor 를 65,536 개 이상으로 설정하도록 합니다.
+vi /etc/security/limits.conf elasticsearch soft nofile 65536 elasticsearch hard nofile 65536
+Thread 수 Elasticsearch 는 여러 유형의 작업에 대해 많은 Thread Pool 을 사용합니다. Elasticsearch 사용자가 만들 수 있는 Thread 가 4096 개 이상인지 확인합니다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.5 Install Elasticsearch - yum, rpm 설치</title>
+      <link>/elasticsearch/1/page-1-5/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-5/</guid>
+      <description>Elasticsearch 는 Java 언어로 이루어진 아파치 Lucene 기반으로 이루어져 있다. 그러므로, 설치를 위해서는 Java 가 먼저 설치되어 있어야 한다. ES 는 여러가지 방법으로 설치가능하지만 그중에서 RPM 패키지 관리자로 설치하는 방법에 대해 정리하였다.
+ 다른 방법으로 ES 설치하기  1. yum 으로 설치하기 1.1) RPM Repository 등록하기 /etc/yum.repos.d/elasticsearch.repo : yum 저장소에 elastic 저장소를 수동으로 추가 한다.
+# /etc/yum.repos.d/elasticsearch.repo [elasticsearch-6.x] name=Elasticsearch repository for 6.x packages baseurl=https://artifacts.elastic.co/packages/6.x/yum gpgcheck=1 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch enabled=1 autorefresh=1 type=rpm-md  1.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.6 Installation - .zip/.tar.gz</title>
+      <link>/elasticsearch/1/page-1-6/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-6/</guid>
+      <description>Elasticsearch는 .zip 또는 .tar.gz 패키지로도 제공된다. 모든 시스템에 제한없이 가장 쉽게 설치할 수 있는 방법이다.
+ 다른 방법으로 ES 설치하기 최신 버전 다운로드  1. zip 패키지로 다운로드 및 설치하기 1.1) wget 으로 .zip 파일 다운로드 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.zip 1.2) zip 압축해제 unzip elasticsearch-6.4.2.zip 2. tar.gz 패키지로 다운로드 및 설치하기 2.1) wget 으로 .zip 파일 다운로드 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.2.tar.gz 2.2) tar 압축해제 tar -xzf elasticsearch-6.4.2.tar.gz 3. Command Line 에서 실행하기 ./bin/elasticsearch # running as a daemon .</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 1.7 Installation Kibana</title>
+      <link>/elasticsearch/1/page-1-7/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/1/page-1-7/</guid>
+      <description>Kibana 는 Elasticsearch 의 오픈 소스 데이터 시각화 플러그인이다. Elasticsearch 클러스터에 인덱싱 된 데이터들을 시각화 하는 기능을 제공한다.  1. yum 으로 Kibana 설치하기 1.1) RPM Repository 등록 vi /etc/yum.repos.d/kibana.repo
+# /etc/yum.repos.d/kibana.repo [kibana-6.x] name=Kibana repository for 6.x packages baseurl=https://artifacts.elastic.co/packages/6.x/yum gpgcheck=1 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch enabled=1 autorefresh=1 type=rpm-md  1.2) yum 명령어로 install yum install kibana 2. Kibana 설정 Kibana 서버는 시작할 때 kibana.yml 에서 속성을 읽는다. kibana.yml 은 배포파일(.zip/.tar.gz) 로 설치한 경우 $KIBANA_HOME/config 에 위치하며 패키지 배포판 에서는 /etc/kibana 에 위치한다.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.1 Elasticsearch 기본 동작</title>
+      <link>/elasticsearch/2/page-2-1/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-1/</guid>
+      <description>1. Index 생성하기 인덱스를 생성하는 방법
+ Index Settings 를 정의한다. Index Mappings 를 정의한다. 사용자 정의된 도큐먼트를 인덱싱한다.  1.1) Index Settings  Static Index Settings  index.number_of_shards : 인덱스가 가져야 하는 Primary 샤드의 개수 설정. (기본값 5)  Dynamic Index Settings  index.number_of_replicas : 각 기본 샤드의 복제본 (Replica 샤드 개수 설정). 기본값은 1 index.refresh_interval : 검색 commit point 를 만드는 refresh interval 설정 (새로 고침 작업수행 빈도).</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.2 플러그인 설치하기</title>
+      <link>/elasticsearch/2/page-2-2/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-2/</guid>
+      <description> 플러그인 설치 인터넷이 가능한 환경에서 설치시 $ cd /usr/share/elasticsearch/ $ sudo bin/elasticsearch-plugin install [플러그인이름] # example $ sudo bin/elasticsearch-plugin install analysis-nori 파일서버 등에서 설치시 $ sudo bin/elasticsearch-plugin install file://path/to/plugin.zip # 파일서버 $ sudo bin/elasticsearch-plugin install [파일서버URL] 설치된 플러그인 리스트 확인 sudo bin/elasticsearch-plugin list 설치된 플러그인 제거 sudo bin/elasticsearch-plugin remove [플러그인이름] [참고]
+ Elasticsearch Reference - plugin-management  </description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.3 Head 소개</title>
+      <link>/elasticsearch/2/page-2-3/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-3/</guid>
+      <description>Elasticsearch Head 클러스트들을 한눈에 보기 위한 도구. 직접 서버를 구성하여 설치할 수도 있고 크롬의 브라우저 익스텐션으로도 제공한다.
+Installation 1.1) ES Head git repository 에서 클론 혹은 다운로드한다. # git 이 설치되어 있지 않으면 sudo yum -y install git git clone https://github.com/mobz/elasticsearch-head.git 1.2) npm 으로 관련 의존성 모듈 설치 cd elasticsearch-head/ sudo yum -y install bzip2 epel-release sudo yum -y install npm # Node 가 설치되어있어야 한다. npm install 1.3) 내장서버 실행 npm run start 1.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 2.5 Elastic-HQ</title>
+      <link>/elasticsearch/2/page-2-4/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-4/</guid>
+      <description>Elastic HQ 설치하기 Requirements  Python 3.4+ Elasticsearch. Supported versions: 2.x, 5.x, 6.x  1.1) ElasticHQ Git Repository 에서 클론 혹은 다운로드 한다. # git 이 설치되어 있지 않으면 sudo yum -y install git git clone https://github.com/ElasticHQ/elasticsearch-HQ.git 1.2) Python 3.4+ 설치한다. (pip 은 파이선 패키지 관리자) # clone 한 디렉터리로 이동 후 cd elasticsearch-HQ/ sudo yum -y install python34 python34-pip 1.3) Repository 의 의존성 패키지 설치한다. pip install -r requirements.</description>
+    </item>
+    
+    <item>
+      <title>[elasticsearch] 2.5 Elasticsearch 플러그인</title>
+      <link>/elasticsearch/2/page-2-5/</link>
+      <pubDate>Sat, 20 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/2/page-2-5/</guid>
+      <description> Elasticsearch 플러그인  플러그인은 사용자 정의 방식에 의해 ES 의 긴능을 향상 시키는 방법이다. 플러그인은 모든 노드에 설치해야 하며 설치 후 클러스터를 재시작 해야 한다.  플러그인 범주 Core Plugins (권고)  Elasticsearch 에서 공식적으로 지원하는 플러그인 Elasticsearch 버전이 업데이트 될때마다 버전 업데이트가 지원됨.  Community contributed  개인 개발자나 회사에 의해 지원되는 플러그인  [참고]
+ Elasticsearch Reference - modules-plugins.  </description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 3.1 Elasticsearch 구성하기</title>
+      <link>/elasticsearch/3/page-3-1/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-1/</guid>
+      <description>Elasticsearch 는 정적으로 설정을 구성할 수 있을 뿐만 아니라 클러스터 운영중에도 클러스터 세팅 업데이트 API 를 통하여 동적인 설정 구성이 가능하다.
+1. Static settings Elasticsearch는 노드별로 설정파일을 구성할 수 있다. Elasticsearch 에는 세 개의 구성 파일이 있으며, 이 설정 파일들의 위치는 아카이브 배포판 설치시에는 $ES_HOME/config, 패키지 배포시에는 (RPM 설치 등) /etc/elasticsearch 에 위치한다.
+ elasticsearch.yml : Elasticsearch 의 핵심 설정 jvm.options : JVM 옵션 설정 ( heapsize 설정 ) log4j2.</description>
+    </item>
+    
+    <item>
+      <title>[Elasticsearch] 3.2 elasticsearch.yml</title>
+      <link>/elasticsearch/3/page-3-2/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-2/</guid>
+      <description>elasticsearch.yml 은 데이터 파일 위치, 로그파일 위치 등 클러스터의 핵심적인 설정을 할 수 있는 구성 파일이다. 파일 포맷은 YAML 로 되어있다.
+1. elasticsearch.yml # path.data : 데이터파일의 위치를 설정 # path.logs : ES 의 로그 파일이 저장될 위치를 설정path:data:/var/lib/elasticsearchlogs:/var/log/elasticsearch# 클러스터를 고유하게 식별할 수 있는 이름 설정cluster:name:es-cluster# 노드를 고유하게 식별할 수 있는 이름설정# 보통 호스트명 기준으로 설정하는 것이 운영에 용이 nodename:es-master01 1.1) path.data path.data 는 Index 의 데이터를 저장할 경로를 지정할 수 있으며 경로는 하나 혹은 여러개로도 지정이 가능하다.</description>
+    </item>
+    
+    <item>
+      <title>jvm.options</title>
+      <link>/elasticsearch/3/page-3-3/</link>
+      <pubDate>Tue, 02 Oct 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/elasticsearch/3/page-3-3/</guid>
+      <description>jvm.options jvm.options 의 설정을 통해 JVM(Java Virtual Machine) 의 옵션을 변경할 수 있습니다. jvm.options 환경 설정 파일은 config/jvm.options(tar or zip 배포판) 또는 /etc/elasticsearch/jvm.options(rpm 패키지 설치) 에서 위치하고 있습니다.
+JVM Heap Size Configuration Elasticsearch 는 Java 기반이기 때문에 Heap 메모리를 어떻게 설정하느냐에 따라 성능에 큰 영향을 미치게 됩니다. 기본적으로 Elasticsearch 의 최소, 최대 Heap 사이즈는 2GB 설정되어 있습니다. 실제 운영환경에 따라서 Elasticsearch 에서 충분한 Heap 을 사용할 수 있도록 Heap Size 를 구성하는 것이 중요합니다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개</title>
+      <link>/jpa-programming/1/page-1-1/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-1/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+1.1 SQL을 직접 다룰 때 발생하는 문제점 코드의 반복작성  데이터베이스는 객체 구조와는 달리 데이터 중심의 구조를 갖는다. 객체를 데이터베이스에 CRUD 하기 위해서는 너무 많은 SQL 과 JDBC API 를 사용하여 변환작업을 직접 해주어야 한다.  SQL 에 의존적인 개발  객체들이 어떤 엔티티를 참조하고 있는지 DAO(데이터 접근 계층) 을 열어 SQL 를 확인해야만 한다. SQL 과 JDBC API 를 DAO 에 은닉화하였지만 논리적으로는 엔티티와 아주 강한 의존관계를 가지고 있다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 2장 JPA 시작</title>
+      <link>/jpa-programming/1/page-1-2/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-2/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+2.2 H2 데이터베이스 설치 H2DB 는 자바 기반의 오픈소스 관계형 데이터 베이스이다. 별도의 설치과정이 필요하지 않고 용량도 1.7M 로 가볍다. SQL 문법은 다른 DBMS 와 마찬가지로 표준 SQL 이 대부분 지원된다.
+H2 데이터 베이스 설치방법 아래 링크에서 zip 파일을 내려받아 압축을 푼다.
+ 링크 - http://www.h2database.com/html/main.html  압축을 푼 곳에서 bin/h2.sh 를 실행한다. 실행이 완료되면 http://localhost:8082 로 접속하면 H2에 접속할 수 있는 화면이 나온다.</description>
+    </item>
+    
+    <item>
+      <title>파이썬의 자료형</title>
+      <link>/python/page-1-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/python/page-1-1/</guid>
+      <description>파이썬의 자료형 파이썬의 변수와 객체  C 와 같은 언어에서 변수는 메모리 상 저장공간에 직접 값을 할당한다면, 파이썬에서 변수는 메모리상에 생성된 객체를 참조 하는 개념이다.
+&amp;gt;&amp;gt;&amp;gt; x = 100 &amp;gt;&amp;gt;&amp;gt; y = 100 &amp;gt;&amp;gt;&amp;gt; x is y True # 257 부터는 서로 다른 객체로 생성됨. &amp;gt;&amp;gt;&amp;gt; x = 257 &amp;gt;&amp;gt;&amp;gt; y = 257 &amp;gt;&amp;gt;&amp;gt; x is y False  위의 예제에서는 x 와 y 는 100 이라는 메모리상 같은 객체를 가리키고 있다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 3장 영속성 관리 - EntityManagerFactory, EntityManager, 영속성컨텍스트, 엔티티 생명주기, 영속성컨텍스트의 특징</title>
+      <link>/jpa-programming/1/page-1-3-1/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-3-1/</guid>
+      <description>김영한님의 책 자바 ORaM 표준 JPA 프로그래밍 학습 내용 정리
+JPA 가 제공하는 기능  엔티티와 테이블을 매핑하는 설계 부분 매핑하는 엔티티를 실제 사용하는 부분  3.1 엔티티 매니저 팩토리와 엔티티 매니저 EntityManagerFactory  EntityManagerFactory 는 이름 그대로 EntityManager 를 만드는 공장이다. 공장을 만드는 비용은 상당히 크다. 그러므로 한 개만 만들어서 애플리케이션 전체에 공유하도록 설계해야 한다. EntityManagerFactory 는 여러 스레드에서 동시에 접근해도 안전하므로 서로 다른 스레드간 공유해도 된다. JPA 구현체들은 EntityManagerFactory 생성시 커넥션 풀을 만든다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 3장 영속성 관리 - 플러시, 준영속</title>
+      <link>/jpa-programming/1/page-1-3-2/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-3-2/</guid>
+      <description>김영한님의 책 자바 ORaM 표준 JPA 프로그래밍 학습 내용 정리
+3.5 플러시  플러시(flush()) 는 영속성 컨텍스트의 내용을 데이터베이스에 반영한다. 영속성 컨텍스트의 변경 내용을 데이터베이스와 동기화 하는 것이 플러시이다.  플러시를 실행하면  변경 감지가 동작하여 영속성 컨텍스트에 있는 모든 엔티티를 스냅샷과 비교해서 수정된 엔티티를 찾는다. =&amp;gt; 수전된 엔티티는 수정 쿼리를 만들어 쓰기지연 SQL 저장소에 등록 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송한다.  플러시 방법  em.flush() 로 직접 호출.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 4장 엔티티 매핑</title>
+      <link>/jpa-programming/1/page-1-4/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-4/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+JPA 의 매핑 어노테이션  객체와 테이블 매핑 : @Entity, @Table 기본 키 매핑 : @Id 필드와 컬럼 매핑 : @Column 연관관계 매핑 : @ManyToOne, @JoinColumn  4.1 @Entity  테이블을 매핑할때 @Entity 어노테이션을 필수로 붙어야 한다.      속성 기능 기본값     name JPA 에서 사용할 엔티티 이름을 지정한다. 보통 기본값인 클래스 이름을 사용한다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 5장 연관관계 매핑 기초 - 단방향 연관관계</title>
+      <link>/jpa-programming/1/page-1-5/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-5/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+ https://gist.github.com/stoptheworld99/e1a4f8c19ec50637e9363bbf76b59450/edit  
+단방향 연관관계  객체는 참조(주소) 를 사용해서 관계를 맺고, 테이블을 외래 키를 사용해서 관계를 맺는다. 방향(Direction) : 단방향과 양방향이 있으며 방향은 객체관계에만 존재하고 테이블 관계는 항상 양방향 이다. 다중성(Multiplicity) : 다대일(N:1), 일대다(1:N), 일대일(1:1), 다대다 (N:N) 연관관계 주인 (owner) : 객체를 양방향 연관관계로 만들면 연관관계의 주인을 정해야 한다.  5.1 단방향 연관관계  객체 연관관계  회원 객체와 팀 객체는 단방향 관계 다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 5장 연관관계 매핑 기초 - 양방향 연관관계</title>
+      <link>/jpa-programming/1/page-1-5-2/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-5-2/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+ https://gist.github.com/stoptheworld99/e1a4f8c19ec50637e9363bbf76b59450/edit  
+5.3 양방향 연관관계  일대다 관계에서는 여러 건과 연관관계를 맺을 수 있으므로 컬렉션(Collection, Set, Map, List ..) 을 사용한다.  5.3.1 양방향 연관관계 매핑 Member.java  회원 엔티티에는 변경할 사항이 없다.   @Entity public class Member { @Id @Column(name = &amp;#34;MEMBER_ID&amp;#34;) private String id; private String username; // 연관관계 매핑  @ManyToOne @JoinColumn(name = &amp;#34;TEAM_ID&amp;#34;) private Team team; // 연관관계 설정  public void setTeam(Team team) { this.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 6장 다양한 연관관계 매핑 - 다대일</title>
+      <link>/jpa-programming/1/page-1-6/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-6/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+다양한 연관관계 다루기 엔티티의 연관관계를 매핑할때 고려할점
+ 다중성 단방향, 양방향 연관관계의 주인  다중성  다대일(@ManyToOne), 일대다(@OneToMany), 일대일(@OneToOne), 다대다(@ManyToMany) 다중성을 판단하기 어려울 때는 반대방향을 생각해보자. 보통 다대일과 일대다 관계를 가장 많이 사용하고 다대다 관계는 실무에서는 거의 사용하지 않음.  단방향, 양방향  객체 관계에서 한쪽만 참고하는 것을 단방향 관계라고하며, 양쪽이 서로 참조하는 것을 양방향 관계라 한다.  연관관계의 주인  외래 키를 가진 테이블과 매핑한 엔티티가 외래키를 관리하는게 효율적이므로 보통 이곳을 연관관계의 주인으로 선택한다.</description>
+    </item>
+    
+    <item>
+      <title>[자바 ORM 표준 JPA 프로그래밍] 6장 다양한 연관관계 매핑 - 일대다</title>
+      <link>/jpa-programming/1/page-1-6-2/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/jpa-programming/1/page-1-6-2/</guid>
+      <description>김영한님의 책 자바 ORM 표준 JPA 프로그래밍 학습 내용 정리
+6.2 일대다  일대다 관계는 엔티티를 하나 이상 참조할 수 있으므로 자바 컬렉션 (Collection, List, Set, Map) 중 하나를 사용한다.  6.2.1 일대다 단방향 [1:N]  일대다 단방향 관계는 JPA 2.0 부터 지원한다. 일대다 단방향의 경우 반대편에서 테이블의 외래키를 관리하는 특이한 모습이 나타난다.  Team.java  @Entity public class Team { @Id @GeneratedValue @Column(name = &amp;#34;TEAM_ID&amp;#34;) private String id; private String name; @OneToMany @JoinColumn (name = &amp;#34;TEAM_ID&amp;#34;) // MEMBER 테이블의 TEAM_ID (FK)  private List&amp;lt;Member&amp;gt; members = new ArrayList&amp;lt;Member&amp;gt;(); } Member.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.1 예외처리</title>
+      <link>/spring5.0/6/page-6-1/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/spring5.0/6/page-6-1/</guid>
+      <description>스프링 5.0 마스터 스터디 학습 내용 정리입니다.
+1. 스프링 부트의 기본 예외처리  스프링부트의 기본 예외 형식은 throw 된 예외 메세지 와 함께 JSON 형태로 에러를 리턴한다. 브라우저경우 기본 오류 페이지 (Whilelabel Error Page) 를 출력한다.
+{ &amp;#34;timestamp&amp;#34;: &amp;#34;2018-12-25T05:01:26.483+0000&amp;#34;, &amp;#34;status&amp;#34;: 500, &amp;#34;error&amp;#34;: &amp;#34;Internal Server Error&amp;#34;, &amp;#34;message&amp;#34;: &amp;#34;Some Exception Occurred&amp;#34;, &amp;#34;path&amp;#34;: &amp;#34;/users/dummy-service&amp;#34; }  2. 스프링 사용자 정의 예외처리 스프링에서는 오류에 대한 응답을 사용자가 정의하는 여러 옵션을 제공한다.
+2.1 응답 메세지 사용자 정의 하기  주어진 ID 가 가지고 있는 todo 가 발견되지 않았을 때 발생시킬 사용자 정의 TodoNotFoundException 와 메세지 처리를 할 ExceptionResponse 객체를 생성한다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.2 HATEOAS</title>
+      <link>/spring5.0/6/page-6-2/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/spring5.0/6/page-6-2/</guid>
+      <description>REST 성숙도 모델 (Richardson Maturity Model) Richardson Maturity Model 에서는 Restful Web Service 를 다음의 단계로 나누어 성숙도를 정의하고 있다.
+ Level 0 : 원격 프로시저 호출 (Remote Procedure Invocation) 에 기반한 형태로 resource 구분 없이 설계된 HTTP API  ex) http://server/getPosts, http://server/deletePosts, http://server/doThis, http://server/doThat 등
+ Level 1 : resource 를 URI 통해 나타낸다. (명사 사용) 그러나, HTTP METHOD(GET,POST,PUT,DELETE 등) 사용하지 않는다.  ex) http://server/accounts, http://server/accounts/10
+ Level 2 : resource 를 URI + HTTP Method 를 사용하여 접근한다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.3 Bean Validation</title>
+      <link>/spring5.0/6/page-6-3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-3/</guid>
+      <description>Bean Validation 데이터 유효성 검증 (Validation) 은 모든계층에서 공통적으로 발생하는 작업이다. 만약 모든 계층에서 동일한 내용의 Validation 로직이 각각의 레이어별로 구현되어 있다면 코드 중복과 함께 각 계층별로 중구난방으로 구현된 검증로직간 불일치로 인하여 오류가 발생하기도 쉽다.
+이러한 Validation 중복을 피하기 위해 도메인의 검증 로직을 도메인 모델 자체에 묶어서 정의하기도 한다. 하지만 도메인 모델에 실제 코드로 Validation 로직을 표현한다면 도메인 모델 자체가 장황하지고 복잡해지게 된다.
+Java 에서는 위와 같은 문제를 해결하기 위해 어노테이션을 통한 Entity 와 Method 를 검증하기 위한 API 를 제공하고 있다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.4 Swagger</title>
+      <link>/spring5.0/6/page-6-4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-4/</guid>
+      <description>REST 서비스 문서의 자동화  REST API 심플하게 설계되면 좋겠지만, 소비자의 요구사항 또는 서비스가 커짐에 따라 API 가 점점 복잡해지고 관리해야할 API 개수도 점점 늘게 된다. 협업을 위해서는 API 는 반드시 문서화 되어야 하는데, 소스 변경사항과 동기화 시키기가 매번 번거롭다. 이러한 문제를 해결하기 위해 REST API 서비스 문서(스펙)을 자동화 하는 툴이 등장하게 되었다.  주요 API Spec 자동화 라이브러리  SLATE : https://github.com/lord/slate Swagger : https://swagger.io/ API Blueprint : https://apiblueprint.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.5 Spring Security - Basic authentication</title>
+      <link>/spring5.0/6/page-6-5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-5/</guid>
+      <description>스프링 시큐리티로 REST 서비스 보호 최근에는 서비스 시스템들끼리 REST API 기반의 통신이 많이 이루어지고 있다. 네이티브 앱과 서버 간 통신뿐만 아니라 자바스크립트 웹 클라이언트 와 서버간에도 REST API 통신을 많이 사용하기 때문에 REST 서비스(리소스) 에 대한 보안이 중요해 지고 있다.
+보안에서 중요한 기본 개념 - 인증(Authentication) 과 권한 (Authorization)  소비자(클라이언트) 가 서비스(리소스) 에 접근이 가능한 소비자인지 ? 인증(Authentication) 접근이 가능하지만 해당 작업을 소비자(클라이언트) 에게 허용할것인지 ? 인가/권한부여(Authorization)  인증방식은 다양하며, 전통적인 인증방식으로는 사용자명(Principle)과 비밀번호(Credential) 로 인증하는 Credential 기반 인증 방식 과 OTP 등과 같이 추가적인 인증방식을 도입해 2가지 방법으로 인증하는 이중 인증 방식 과 최근에는 OAuth2 인증방식 도 필수적으로 사용되고 있다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.6 Spring Security - OAuth 2.0</title>
+      <link>/spring5.0/6/page-6-6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-6/</guid>
+      <description>OAuth2 인증  OAuth 2는 어플리케이션과 Facebook, GitHub 및 DigitalOcean 과 같은 HTTP 서비스의사용자 계정에 대한 제한된 액세스 권한을 얻을 수있게 해주는 인증 프레임 워크이다. 이는 사용자 계정을 호스팅하는 서비스에 사용자 인증을 위임하고 타사 응용 프로그램에 사용자 계정에 대한 액세스 권한을 부여하여 작동하게 된다. OAuth 2는 웹 및 데스크톱 응용 프로그램 및 모바일 장치에 대한 인증 흐름을 제공하게 된다.  다음은 일반적인 OAuth2 교환에 중요한 사용자이다  리소스 소유자 (사용자) : 리소스 소유자는 자신의 계정에 액세스하기 위해 어플리케이션 을 인증하는 사용자 이다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.7 국제화</title>
+      <link>/spring5.0/6/page-6-7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-7/</guid>
+      <description>국제화  국제화는 다양한 언어 및 문화권에 에서 사용할 수 있는 컨텐츠를 제공할 수 있도록 어플리케이션을 작성하는 것을 의미한다. 국제화(internationalization) 를 I18N이나 i18n으로, 현지화(localization)를 L10N이나 l10n 등으로 표기하기도 한다. 스프링 부트는 국제화를 위한 지원 기능을 내장하고 있다.
+ 스프링부트프로젝트에서 국제화 지원설정하기 1.1 Application.java 에 LocaleResolver 추가 @Bean public SessionLocaleResolver localResolver() { SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver(); sessionLocaleResolver.setDefaultLocale(Locale.US); return sessionLocaleResolver; } @Bean public ResourceBundleMessageSource messageSource (){ ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); messageSource.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 6.8 캐싱</title>
+      <link>/spring5.0/6/page-6-8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/6/page-6-8/</guid>
+      <description>캐싱  캐싱은 많은 시간이나 연산이 필요한 일데 대한 결과를 저장해 두는 것 이라고 할 수 있다. 서비스의 데이터 캐싱은 어플리케이션의 성능과 확장성을 향상시키는데 중요한 역할을 한다. 스프링은 어노테이션에 기반을 둔 캐싱 추상화를 제공한다. JSR-107(JCahce) 구현체 들은 모두 지원한다. EhCache, Hazelcast, Infinispan, Couchbase, Redis 등이 기본적으로 자동설정에 포함되어 있다.  스프링 부트 프로젝트에 캐싱 적용하기  1. 의존성 추가 spring-boot-starter-cache 를 pom.xml 또는 build.gradle 에 추가한다. 이 의존모듈을 추가하면 JSR-107 및 스프링 캐싱 어노테이션을 사용하는데 필요한 의존성이 생긴다.</description>
+    </item>
+    
+    <item>
+      <title>[스프링 5.0 마스터] 11.1 Reactive Programming</title>
+      <link>/spring5.0/11/page-11-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/spring5.0/11/page-11-1/</guid>
+      <description>1. 리액티브 시스템 새로운 디바이스 (모바일, 태블릿 등) real-time data 에 대한 수요 증가
+ 대량의 프로세스 처리 로드 발생 데이터 볼륨이 기하급수적으로 증가 인프라 유지 보수 비용 증가  1.1 Reactive 시스템 특징  Reactive manifesto : https://www.reactivemanifesto.org/ko   Reative Manifesto 는 다음 네 가지 핵심 원칙에 따라 Reactive System 의 특성을 개략적으로 설명하고 있다.
+ 반응성 (Responsive) : 모든 응답은 적시에 빠르고 일관된 대응을 제공하며 신뢰할수 있으며 일관된 서비스 품질을 제공한다.</description>
+    </item>
+    
+    <item>
+      <title>[H2] H2 설치후 연결시 Database ~ not found, and IFEXISTS=true, so we cant auto-create it [90146-199]</title>
+      <link>/note/9001/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/note/9001/</guid>
+      <description>해당 정보를 입력하고 연결정보를 클릭시 아래와 같은 에러가 발생하였다.
+Database &amp;quot;/Users/riley/test&amp;quot; not found, and IFEXISTS=true, so we cant auto-create it [90146-199] 90146/90146 (도움말)  아래 링크를 통하여 test 라는 이름의 새로운 데이터베이스를 생성해줌으로써 해결하였다.
+ http://www.h2database.com/html/tutorial.html#creating_new_databases
+# 설치경로로 이동 cd /Users/riley/Utils/h2/bin  이동하면 h2-버전명 jar 파일이 있다. h2 쉘을 아래와 같이 실행해준다.
+java -cp h2-1.4.199.jar org.h2.tools.Shell  URL 은 jdbc:h2:~/test 로 지정하였다. jdbc:h2:~/test 로 접속 URL 을 설정하였지만 어플리케이션에서 접속시 URL 은 jdbc:h2:tcp://localhost/~/test 로 접속해야한다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko-kr">
+  <head>
+    <title>JPA Programmings // @stoptheworld99</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="riley" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JPA Programmings"/>
+<meta name="twitter:description" content="걍 정리"/>
+
+    <meta property="og:title" content="JPA Programmings" />
+<meta property="og:description" content="걍 정리" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/jpa-programming/" />
+
+<meta property="og:updated_time" content="2018-12-09T17:53:39+09:00" />
+
+
+    <style type="text/css">
+        @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+        body {
+            font-family: 'Nanum Gothic';
+        }
+
+        h1 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-size: 1.6rem;
+        }
+        h2, h3, h4, h5, h6 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-weight: bold;
+        }
+
+        code {
+          color: #57cc8a;
+           
+           
+           
+          border-radius: .2em;
+          background: rgba(255,255,255,.1);
+        }
+      
+        pre code {
+          color:#f8f8f2;
+          background: #272821;
+          font-size: 1em;
+        }
+
+        .chroma {
+          background-color: #272821;
+        }
+        p img {
+          margin-left: auto; margin-right: auto; display: block;
+        }
+
+        .post-content {
+          font-size: .9em;
+        }
+        
+        .post-content .image-area {
+          font-size:0.8rem;
+          text-align:center 
+        }
+
+        strong {
+          color: #57cc8a;
+        }
+
+        hr {
+          margin-block-start: 1.5em;
+          margin-block-end: 1.5em;
+        }
+
+        table{
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+          border-bottom: 1px solid #ccc;
+          margin: 20px 10px;
+        }
+        table thead th {
+            width: 150px;
+            padding: 5px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #fff;
+            background: #0489B1;
+            margin: 20px 10px;
+        }
+        table tbody th {
+            width: 150px;
+            padding: 10px;
+        }
+        table td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        table .even {
+            background: #fdf3f5;
+        }
+
+        strong {
+          color : #0489B1;
+        } 
+
+        .gist .blob-wrapper.data {
+          max-height:700px;
+          overflow:auto;
+        }
+
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="riley" /></a>
+      <h1>@stoptheworld99</h1>
+      <p>걍 정리</p><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/jpa/">JPA</a><a class="tag" href="/tags/h2/">H2</a><a class="tag" href="/tags/spring/">spring</a><a class="tag" href="/tags/note/">note</a></div><br/>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.instagram.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+
+    </header>
+    <main class="app-container">
+      
+  <article>
+    <h1>JPA Programmings</h1>
+    <ul class="posts-list">
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-1/">[자바 ORM 표준 JPA 프로그래밍] 1장 JPA 소개</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 5 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-2/">[자바 ORM 표준 JPA 프로그래밍] 2장 JPA 시작</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 3 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-3-1/">[자바 ORM 표준 JPA 프로그래밍] 3장 영속성 관리 - EntityManagerFactory, EntityManager, 영속성컨텍스트, 엔티티 생명주기, 영속성컨텍스트의 특징</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 5 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-3-2/">[자바 ORM 표준 JPA 프로그래밍] 3장 영속성 관리 - 플러시, 준영속</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 2 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-4/">[자바 ORM 표준 JPA 프로그래밍] 4장 엔티티 매핑</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 7 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-5/">[자바 ORM 표준 JPA 프로그래밍] 5장 연관관계 매핑 기초 - 단방향 연관관계</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 4 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-5-2/">[자바 ORM 표준 JPA 프로그래밍] 5장 연관관계 매핑 기초 - 양방향 연관관계</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 4 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-6/">[자바 ORM 표준 JPA 프로그래밍] 6장 다양한 연관관계 매핑 - 다대일</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 2 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="/jpa-programming/1/page-1-6-2/">[자바 ORM 표준 JPA 프로그래밍] 6장 다양한 연관관계 매핑 - 일대다</a>
+          <span class="posts-list-item-description">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg> 1 min read -
+            Dec 9, 2018
+          </span>
+        </li>
+      
+    </ul>
+    
+
+
+
+  </article>
+
+    </main>
+  </body>
+</html>

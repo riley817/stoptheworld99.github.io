@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko-kr">
+  <head>
+    <title>[스프링 5.0 마스터] 6.7 국제화 // @stoptheworld99</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="riley" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.59023e5fd38d6ecb0e1dfbb295077c3c67e00e3b9eb3feaf34b5a5e6b332897a.css" />
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[스프링 5.0 마스터] 6.7 국제화"/>
+<meta name="twitter:description" content="국제화  국제화는 다양한 언어 및 문화권에 에서 사용할 수 있는 컨텐츠를 제공할 수 있도록 어플리케이션을 작성하는 것을 의미한다. 국제화(internationalization) 를 I18N이나 i18n으로, 현지화(localization)를 L10N이나 l10n 등으로 표기하기도 한다. 스프링 부트는 국제화를 위한 지원 기능을 내장하고 있다.
+ 스프링부트프로젝트에서 국제화 지원설정하기 1.1 Application.java 에 LocaleResolver 추가 @Bean public SessionLocaleResolver localResolver() { SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver(); sessionLocaleResolver.setDefaultLocale(Locale.US); return sessionLocaleResolver; } @Bean public ResourceBundleMessageSource messageSource (){ ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); messageSource."/>
+
+    <meta property="og:title" content="[스프링 5.0 마스터] 6.7 국제화" />
+<meta property="og:description" content="국제화  국제화는 다양한 언어 및 문화권에 에서 사용할 수 있는 컨텐츠를 제공할 수 있도록 어플리케이션을 작성하는 것을 의미한다. 국제화(internationalization) 를 I18N이나 i18n으로, 현지화(localization)를 L10N이나 l10n 등으로 표기하기도 한다. 스프링 부트는 국제화를 위한 지원 기능을 내장하고 있다.
+ 스프링부트프로젝트에서 국제화 지원설정하기 1.1 Application.java 에 LocaleResolver 추가 @Bean public SessionLocaleResolver localResolver() { SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver(); sessionLocaleResolver.setDefaultLocale(Locale.US); return sessionLocaleResolver; } @Bean public ResourceBundleMessageSource messageSource (){ ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource(); messageSource." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/spring5.0/6/page-6-7/" />
+
+
+
+    <style type="text/css">
+        @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+        body {
+            font-family: 'Nanum Gothic';
+        }
+
+        h1 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-size: 1.6rem;
+        }
+        h2, h3, h4, h5, h6 {
+          font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+          font-weight: bold;
+        }
+
+        code {
+          color: #57cc8a;
+           
+           
+           
+          border-radius: .2em;
+          background: rgba(255,255,255,.1);
+        }
+      
+        pre code {
+          color:#f8f8f2;
+          background: #272821;
+          font-size: 1em;
+        }
+
+        .chroma {
+          background-color: #272821;
+        }
+        p img {
+          margin-left: auto; margin-right: auto; display: block;
+        }
+
+        .post-content {
+          font-size: .9em;
+        }
+        
+        .post-content .image-area {
+          font-size:0.8rem;
+          text-align:center 
+        }
+
+        strong {
+          color: #57cc8a;
+        }
+
+        hr {
+          margin-block-start: 1.5em;
+          margin-block-end: 1.5em;
+        }
+
+        table{
+          border-collapse: collapse;
+          text-align: left;
+          line-height: 1.5;
+          border-bottom: 1px solid #ccc;
+          margin: 20px 10px;
+        }
+        table thead th {
+            width: 150px;
+            padding: 5px;
+            font-weight: bold;
+            vertical-align: top;
+            color: #fff;
+            background: #0489B1;
+            margin: 20px 10px;
+        }
+        table tbody th {
+            width: 150px;
+            padding: 10px;
+        }
+        table td {
+            width: 350px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        table .even {
+            background: #fdf3f5;
+        }
+
+        strong {
+          color : #0489B1;
+        } 
+
+        .gist .blob-wrapper.data {
+          max-height:700px;
+          overflow:auto;
+        }
+
+    </style>
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="riley" /></a>
+      <h1>@stoptheworld99</h1>
+      <p>걍 정리</p><div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+        <a class="tag" href="/tags/elasticsearch/">elasticsearch</a><a class="tag" href="/tags/jpa/">JPA</a><a class="tag" href="/tags/h2/">H2</a><a class="tag" href="/tags/spring/">spring</a><a class="tag" href="/tags/note/">note</a></div><br/>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.instagram.com/stoptheworld99"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+</svg></a>
+        
+      </div>
+
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">[스프링 5.0 마스터] 6.7 국제화</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 1, 0001
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="/tags/spring/">spring</a></div></div>
+    </header>
+    <div class="post-content">
+      
+
+<hr />
+
+<h2 id="국제화">국제화</h2>
+
+<blockquote>
+<p>국제화는 다양한 언어 및 문화권에 에서 사용할 수 있는 컨텐츠를 제공할 수 있도록 어플리케이션을 작성하는 것을 의미한다. <strong>국제화(internationalization)</strong> 를 <strong>I18N</strong>이나 <strong>i18n</strong>으로, <strong>현지화(localization)</strong>를 <strong>L10N</strong>이나 <strong>l10n</strong> 등으로 표기하기도 한다. 스프링 부트는 국제화를 위한 지원 기능을 내장하고 있다.</p>
+</blockquote>
+
+<h2 id="스프링부트프로젝트에서-국제화-지원설정하기">스프링부트프로젝트에서 국제화 지원설정하기</h2>
+
+<h3 id="1-1-application-java-에-localeresolver-추가">1.1 Application.java 에 LocaleResolver 추가</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nf">SessionLocaleResolver</span> <span class="n">localResolver</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">SessionLocaleResolver</span> <span class="nf">sessionLocaleResolver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SessionLocaleResolver</span><span class="p">();</span>
+    <span class="n">sessionLocaleResolver</span><span class="p">.</span><span class="na">setDefaultLocale</span><span class="p">(</span><span class="n">Locale</span><span class="p">.</span><span class="na">US</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">sessionLocaleResolver</span><span class="p">;</span>
+<span class="p">}</span>
+    
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nf">ResourceBundleMessageSource</span> <span class="n">messageSource</span> <span class="p">(){</span>
+    <span class="n">ResourceBundleMessageSource</span> <span class="nf">messageSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResourceBundleMessageSource</span><span class="p">();</span>
+    <span class="n">messageSource</span><span class="p">.</span><span class="na">setBasename</span><span class="p">(</span><span class="s">&#34;i18n/message&#34;</span><span class="p">);</span>
+    <span class="n">messageSource</span><span class="p">.</span><span class="na">setUseCodeAsDefaultMessage</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">messageSource</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<ul>
+<li><p><code>sessionLocaleResolver.setDefaultLocale(Locale.US)</code> : 기본 로케일을 <code>Locale.US</code> 로 설정한다.</p></li>
+
+<li><p><code>messageSource.setBasename(&quot;i18n/messages&quot;)</code> : 메세지 소스의 기본이름을 <strong>message</strong> 로 설정한다. 예를들어 message_kr.properties 지정할 수 있으며, <code>message_kr.properties</code> 를 사용할 수 없으면 <code>message.properties</code> 에서 검색된다.</p></li>
+
+<li><p><code>messageSource.setUseCodeAsDefaultMessage(true)</code> : 메세지를 찾을 수 없는 경우 코드는 기본 메세지를 반환한다.</p></li>
+</ul>
+
+<h3 id="1-2-국제화-메세지-파일-생성하기">1.2 국제화 메세지 파일 생성하기</h3>
+
+<pre><code># message.properties
+welcome.message=Welcome in English
+
+# message_fr.properties
+welcome.message=Welcome in French
+</code></pre>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

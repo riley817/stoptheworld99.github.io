@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="description" content=" 자바의 리액티브 프로그래밍 - 리액티브 스트림, 리액터 ">
+<meta name="author" content="riley">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>13.2 Spring Reactive - 1 :: @stoptheworld99</title>
+
+    
+    <link href="/css/nucleus.css?1551596329" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1551596329" rel="stylesheet">
+    <link href="/css/hybrid.css?1551596329" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1551596329" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1551596329" rel="stylesheet">
+    <link href="/css/auto-complete.css?1551596329" rel="stylesheet">
+    <link href="/css/theme.css?1551596329" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1551596329" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1551596329"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> 
+<style type="text/css">
+    
+    @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+    body {
+        font-family: 'Nanum Gothic';
+    }
+
+    h1 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.3rem;
+    }
+    h2, h3, h4, h5, h6 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 2rem 0 0.75rem 0;
+    }
+
+    h5 {
+        margin: 1.5rem 0 0.2rem 0;
+        font-size: 1.1rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    #chapter h2 {
+        color: #222;
+        text-align: center;
+
+    }
+
+    #chapter h3 {
+        font-family: "Nanum Gothic", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    }
+
+    #chapter p {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    pre {
+        margin:0.5rem 0 2rem 0;
+    }
+
+    div.notices p {
+        font-size: 0.8rem;
+    }
+
+    section strong {
+        font-weight: bold;
+    }
+    
+    article section.page h1:first-of-type {
+        font-family:  "Godo", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.8rem;
+    }
+
+    article section.page pre {
+        background-color: #272822 ;
+        color: #f8f8f2; 
+    }
+
+    article section.page p code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+
+    article section.page ul li code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+</style>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body class="" data-url="/notes/spring5.0/13/page-13-2/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <i class="fab fa-github-alt" style="font-size:3rem;"></i> 
+<br/>
+RILEY (@stoptheworld99)
+<br/>
+개발블로그
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1551596329"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1551596329"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1551596329"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/" title="Notes" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/">
+          <i class='fas fa-book-open'></i>  Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/" title="Mastering Spring 5.0" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/spring5.0/">
+          <i class='fas fa-leaf'></i>  Mastering Spring 5.0
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/6/" title="6. 마이크로서비스 확장" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/6/">
+          6. 마이크로서비스 확장
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-1/" title="6.1 예외처리" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-1/">
+        6.1 예외처리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-2/" title="6.2 HATEOAS" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-2/">
+        6.2 HATEOAS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-3/" title="6.3 Bean Validation" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-3/">
+        6.3 Bean Validation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-4/" title="6.4 Swagger" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-4/">
+        6.4 Swagger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-5/" title="6.5 Spring Security - Basic authentication" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-5/">
+        6.5 Spring Security - Basic authentication
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-6/" title="6.6 Spring Security - OAuth 2.0" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-6/">
+        6.6 Spring Security - OAuth 2.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-7/" title="6.7 국제화" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-7/">
+        6.7 국제화
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-8/" title="6.8 캐싱" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-8/">
+        6.8 캐싱
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/13/" title="13. 리액티브 프로그래밍" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/spring5.0/13/">
+          13. 리액티브 프로그래밍
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-1/" title="13.1 Reactive Programming" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-1/">
+        13.1 Reactive Programming
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-2/" title="13.2 Spring Reactive - 1" class="dd-item active">
+        <a href="/notes/spring5.0/13/page-13-2/">
+        13.2 Spring Reactive - 1
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-3/" title="13.2 Spring Reactive - 2" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-3/">
+        13.2 Spring Reactive - 2
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/jpa-programming/" title="자바 ORM 표준 JPA Programming" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/jpa-programming/">
+          <i class='fas fa-cogs'></i> 자바 ORM 표준 JPA Programming
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-1/" title="1. JPA 소개" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-1/">
+        1. JPA 소개
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-2/" title="2. JPA 시작" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-2/">
+        2. JPA 시작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-3/" title="3. 영속성 관리" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-3/">
+        3. 영속성 관리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/" title="Elasticsearch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/">
+          Elasticsearch
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/1/" title="1 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/1/">
+          1 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-1/" title="Basic Concepts" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-1/">
+        Basic Concepts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-1/" title="Basic Concepts - Shard" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-1/">
+        Basic Concepts - Shard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-2/" title="Distributed Cluster" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-2/">
+        Distributed Cluster
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-3/" title="Basic Concepts - Segment" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-3/">
+        Basic Concepts - Segment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-4/" title="Install Elasticsearch with RPM" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-4/">
+        Install Elasticsearch with RPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-5/" title="Installation with .zip/.tar.gz" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-5/">
+        Installation with .zip/.tar.gz
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-6/" title="Installation Kibana" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-6/">
+        Installation Kibana
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/2/" title="2 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/2/">
+          2 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-1/" title="Elasticsearch 기본 동작" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-1/">
+        Elasticsearch 기본 동작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-2/" title="Plugin Installation" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-2/">
+        Plugin Installation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-3/" title="Head" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-3/">
+        Head
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-4/" title="Elastic-HQ" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-4/">
+        Elastic-HQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-5-1/" title="Elasticsearch Plugins" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-5-1/">
+        Elasticsearch Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/3/" title="3 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/3/">
+          3 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-1/" title="Configuring Elasticsearch" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-1/">
+        Configuring Elasticsearch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-2/" title="elasticsearch.yml" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-2/">
+        elasticsearch.yml
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-3/" title="jvm.options" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-3/">
+        jvm.options
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-4/" title="log4j2.properties" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-4/">
+        log4j2.properties
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-5/" title="그 외 설정" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-5/">
+        그 외 설정
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="/notes"><i class='fa fa-book-open'></i> <label>Notes</label></a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='' href="https://stoptheworld99.github.io/notes/Spring5.0/13/page-13-2.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text"></span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                   13.2 Spring Reactive - 1 
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
+
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+
+
+
+<h2 id="13-2-spring-reactive-1">13.2 Spring Reactive - 1</h2>
+
+<h4 id="1-리액티브-스트림">1. 리액티브 스트림</h4>
+
+<hr />
+
+<h5 id="1-1-리액티브-스트림-의존성-추가">1.1 리액티브 스트림 의존성 추가</h5>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams:1.0.2&#39;</span><span class="o">)</span>
+<span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams-tck:1.0.2&#39;</span><span class="o">)</span></code></pre></div>
+<h5 id="1-2-리액티브-스트림의-구성요소">1.2 리액티브 스트림의 구성요소</h5>
+
+<ul>
+<li><code>Publisher</code>  : 데이터 제공자. 구독한 구독자들에게 구독 정보를 토대로 데이터를 제공한다.</li>
+<li><code>Subscriber</code> : 데이터 소모자. 제공자로부터 데이터를 받아 소모한다.</li>
+<li><code>Subscription</code> : 구독 정보. Subscriber 는 Publisher 를 구독하여 데이터(n) 요청할 수 있다.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Publisher
+</span><span class="c1"></span><span class="kn">package</span> <span class="nn">org.reactivestreams</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Publisher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">Subscriber</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">var1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// Subscriber
+</span><span class="c1"></span><span class="kn">package</span> <span class="nn">org.reactivestreams</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Subscriber</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">onSubscribe</span><span class="o">(</span><span class="n">Subscription</span> <span class="n">var1</span><span class="o">);</span>
+
+    <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">T</span> <span class="n">var1</span><span class="o">);</span>
+
+    <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">var1</span><span class="o">);</span>
+
+    <span class="kt">void</span> <span class="nf">onComplete</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">// Subscription
+</span><span class="c1"></span><span class="kn">package</span> <span class="nn">org.reactivestreams</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Subscription</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">request</span><span class="o">(</span><span class="kt">long</span> <span class="n">var1</span><span class="o">);</span>
+
+    <span class="kt">void</span> <span class="nf">cancel</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+<p><img src="https://grokonez.com/wp-content/uploads/2017/04/reactive-stream-flow-interface-behavior.png" alt="reactive-stream-diagram" /></p>
+
+<h5 id="publisher">Publisher</h5>
+
+<ul>
+<li><code>void subscribe(Subscriber&lt;? super T&gt; var1);</code> : <strong>Subscriber</strong> 객체를 매개변수로 입력받아 <strong>Publisher</strong> 가 <strong>Subscriber</strong> 관리 할 수 있다. 그리고 <strong>Subscriber</strong> 의 메소드를 사용할 수 있다.<br /></li>
+</ul>
+
+<h5 id="subscriber">Subscriber</h5>
+
+<ul>
+<li><code>onSubscribe()</code> : <strong>Publisher</strong> 를 구독하게 되면 호출된다.</li>
+<li><code>onNext()</code> : 비동기 식으로 <code>Executor</code> 를 통해 구독자에게 메세지를 게시할 수 있다.</li>
+<li><code>onError()</code> : 에러가 발생 시 호출된다.</li>
+<li><code>onComplete()</code> : 더 게시된 메세지 요소가 없을 경우 다음 작업을 수행한다.</li>
+</ul>
+
+<h5 id="subscription">Subscription</h5>
+
+<ul>
+<li><code>request()</code> :  <strong>Publisher</strong> 에게 게시된 데이터를 요청한다.</li>
+<li><code>cancel()</code> : 데이터에 대한 요청을 취소한다.</li>
+</ul>
+
+<hr />
+
+<h5 id="출처-및-참고-사이트">출처 및 참고 사이트</h5>
+
+<ul>
+<li>Java9 Reactive Stream API
+
+<ul>
+<li><a href="http://www.reactive-streams.org/">http://www.reactive-streams.org/</a></li>
+</ul></li>
+<li>Java9 Reactive Stream 에 대한 자세한 설명 및 내용 참고
+
+<ul>
+<li><a href="http://jess-m.tistory.com/18">http://jess-m.tistory.com/18</a></li>
+<li><a href="https://grokonez.com/java/java-9/java-9-flow-api-reactive-streams">https://grokonez.com/java/java-9/java-9-flow-api-reactive-streams</a></li>
+</ul></li>
+</ul>
+
+<h4 id="2-리액터">2. 리액터</h4>
+
+<hr />
+
+<p>리액터는 스프링 피보탈 팀의 리액티브 프레임워크이며, 리액티브 스트림을 기반으로 한다.</p>
+
+<h5 id="2-1-의존성-추가">2.1 의존성 추가</h5>
+
+<p><code># build.gradle</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span>      <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-core:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+<span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-test:3.2.5.RELEASE&#39;</span><span class="o">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">plugins</span> <span class="o">{</span>
+    <span class="n">id</span> <span class="s1">&#39;java&#39;</span>
+    <span class="n">id</span> <span class="s1">&#39;war&#39;</span>
+    <span class="n">id</span> <span class="s1">&#39;org.springframework.boot&#39;</span> <span class="n">version</span> <span class="s1">&#39;2.1.1.RELEASE&#39;</span>
+<span class="o">}</span>
+
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;io.spring.dependency-management&#39;</span>
+
+<span class="n">group</span> <span class="s1">&#39;com.mastering.spring&#39;</span>
+<span class="n">version</span> <span class="s1">&#39;1.0-SNAPSHOT&#39;</span>
+
+<span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="mf">1.11</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.springframework.boot:spring-boot-starter&#39;</span><span class="o">)</span>
+
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams:1.0.2&#39;</span><span class="o">)</span>
+    <span class="n">implementation</span> <span class="o">(</span><span class="s1">&#39;org.reactivestreams:reactive-streams-tck:1.0.2&#39;</span><span class="o">)</span>
+
+    <span class="n">implementation</span>      <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-core:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;io.projectreactor:reactor-test:3.2.5.RELEASE&#39;</span><span class="o">)</span>
+
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;org.springframework.boot:spring-boot-starter-test:2.1.2.RELEASE&#39;</span><span class="o">)</span>
+    <span class="n">testImplementation</span>  <span class="o">(</span><span class="s1">&#39;junit:junit:4.12&#39;</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+<h5 id="2-2-mono-와-flux">2.2 Mono 와 Flux</h5>
+
+<p>Mono 와 Flux 모두 Reactive Stream 의 Publisher 인터페이스를 구현하고 있으며, Reactor 에서 제공하는 여러 연산자(operators) 의 조합을 통해 스트림을 가공할 수 있다.</p>
+
+<ul>
+<li><code>Mono</code> : 요소가 아예 없거나 하나의 결과만을 처리하기 위한 Reactor 객체</li>
+<li><code>Flux</code> : 결과가 0-N 개인 여러 개의 결과를 처리하는 Reactor 객체</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.mastering.spring.reactive</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.time.Duration</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringReactiveTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">monoExample</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+
+        <span class="c1">// 5초 후에 하나의 요소를 방출한다.
+</span><span class="c1"></span>        <span class="n">Mono</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stubMonoWithADelay</span> <span class="o">=</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Ranga&#34;</span><span class="o">).</span><span class="na">delayElement</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">5</span><span class="o">));</span>
+
+        <span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1"></span>        <span class="n">stubMonoWithADelay</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+        <span class="c1">// 테스트 실행시간을 지연시킨다.
+</span><span class="c1"></span>        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">10000</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Consumer 를 명시적으로 정의
+</span><span class="cm"> */</span>
+<span class="kd">class</span> <span class="nc">SystemOutConsumer</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Received &#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34; at&#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1">// stubMonoWithADelay.subscribe(System.out::println);
+</span><span class="c1"></span><span class="n">stubMonoWithADelay</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="o">());</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">WelcomeConsumer</span> <span class="kd">implements</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Welcome &#34;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 모노 이벤트를 수신하고 콘솔에 기록한다.
+</span><span class="c1">// stubMonoWithADelay.subscribe(System.out::println);
+</span><span class="c1"></span><span class="n">stubMonoWithADelay</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="o">());</span>
+<span class="n">stubMonoWithADelay</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">WelcomeConsumer</span><span class="o">());</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">simpleFluxStream</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Flux</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stubFluxStream</span> <span class="o">=</span> <span class="n">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">&#34;Jane&#34;</span><span class="o">,</span> <span class="s">&#34;Joe&#34;</span><span class="o">);</span>
+        <span class="n">stubFluxStream</span><span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">SystemOutConsumer</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+            </div> 
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1551596329"></script>
+    <script src="/js/jquery.sticky.js?1551596329"></script>
+    <script src="/js/featherlight.min.js?1551596329"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1551596329"></script>
+    <script src="/js/highlight.pack.js?1551596329"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1551596329"></script>
+    <script src="/js/learn.js?1551596329"></script>
+    <script src="/js/hugo-learn.js?1551596329"></script>
+
+    <link href="/mermaid/mermaid.css?1551596329" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1551596329"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

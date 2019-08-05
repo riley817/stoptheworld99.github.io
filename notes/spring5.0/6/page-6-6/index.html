@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.49.2" />
+    <meta name="description" content="스프링 시큐리티로 REST 서비스 보호 - OAuth 2 인증">
+<meta name="author" content="riley">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>6.6 Spring Security - OAuth 2.0 :: @stoptheworld99</title>
+
+    
+    <link href="/css/nucleus.css?1551596329" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1551596329" rel="stylesheet">
+    <link href="/css/hybrid.css?1551596329" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1551596329" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1551596329" rel="stylesheet">
+    <link href="/css/auto-complete.css?1551596329" rel="stylesheet">
+    <link href="/css/theme.css?1551596329" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1551596329" rel="stylesheet">
+    
+
+    <script src="/js/jquery-2.x.min.js?1551596329"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+<link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'> 
+<style type="text/css">
+    
+    @font-face { font-family: 'Godo'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff'); } @font-face { font-family: 'Godo'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff') format('woff'); } .godo * { font-family: 'Godo', sans-serif; }
+
+    body {
+        font-family: 'Nanum Gothic';
+    }
+
+    h1 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.3rem;
+    }
+    h2, h3, h4, h5, h6 {
+        font-family: "Godo", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 2rem 0 0.75rem 0;
+    }
+
+    h5 {
+        margin: 1.5rem 0 0.2rem 0;
+        font-size: 1.1rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    #chapter h2 {
+        color: #222;
+        text-align: center;
+
+    }
+
+    #chapter h3 {
+        font-family: "Nanum Gothic", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    }
+
+    #chapter p {
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    pre {
+        margin:0.5rem 0 2rem 0;
+    }
+
+    div.notices p {
+        font-size: 0.8rem;
+    }
+
+    section strong {
+        font-weight: bold;
+    }
+    
+    article section.page h1:first-of-type {
+        font-family:  "Godo", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+        font-size: 2.8rem;
+    }
+
+    article section.page pre {
+        background-color: #272822 ;
+        color: #f8f8f2; 
+    }
+
+    article section.page p code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+
+    article section.page ul li code {
+        background-color: #f9f2f4;
+        border-radius: 3px;
+        color: #c7254e;
+        font-size: 90%;
+        padding: 3px 5px 3px;
+    }
+</style>
+<link rel="stylesheet" href="/css/syntax.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body class="" data-url="/notes/spring5.0/6/page-6-6/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <i class="fab fa-github-alt" style="font-size:3rem;"></i> 
+<br/>
+RILEY (@stoptheworld99)
+<br/>
+개발블로그
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1551596329"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1551596329"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1551596329"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/" title="Notes" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/">
+          <i class='fas fa-book-open'></i>  Notes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/" title="Mastering Spring 5.0" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/spring5.0/">
+          <i class='fas fa-leaf'></i>  Mastering Spring 5.0
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/6/" title="6. 마이크로서비스 확장" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/notes/spring5.0/6/">
+          6. 마이크로서비스 확장
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-1/" title="6.1 예외처리" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-1/">
+        6.1 예외처리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-2/" title="6.2 HATEOAS" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-2/">
+        6.2 HATEOAS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-3/" title="6.3 Bean Validation" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-3/">
+        6.3 Bean Validation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-4/" title="6.4 Swagger" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-4/">
+        6.4 Swagger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-5/" title="6.5 Spring Security - Basic authentication" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-5/">
+        6.5 Spring Security - Basic authentication
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-6/" title="6.6 Spring Security - OAuth 2.0" class="dd-item active">
+        <a href="/notes/spring5.0/6/page-6-6/">
+        6.6 Spring Security - OAuth 2.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-7/" title="6.7 국제화" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-7/">
+        6.7 국제화
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/6/page-6-8/" title="6.8 캐싱" class="dd-item ">
+        <a href="/notes/spring5.0/6/page-6-8/">
+        6.8 캐싱
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/spring5.0/13/" title="13. 리액티브 프로그래밍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/spring5.0/13/">
+          13. 리액티브 프로그래밍
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-1/" title="13.1 Reactive Programming" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-1/">
+        13.1 Reactive Programming
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-2/" title="13.2 Spring Reactive - 1" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-2/">
+        13.2 Spring Reactive - 1
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/spring5.0/13/page-13-3/" title="13.2 Spring Reactive - 2" class="dd-item ">
+        <a href="/notes/spring5.0/13/page-13-3/">
+        13.2 Spring Reactive - 2
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/jpa-programming/" title="자바 ORM 표준 JPA Programming" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/jpa-programming/">
+          <i class='fas fa-cogs'></i> 자바 ORM 표준 JPA Programming
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-1/" title="1. JPA 소개" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-1/">
+        1. JPA 소개
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-2/" title="2. JPA 시작" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-2/">
+        2. JPA 시작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/jpa-programming/1/page-1-3/" title="3. 영속성 관리" class="dd-item ">
+        <a href="/notes/jpa-programming/1/page-1-3/">
+        3. 영속성 관리
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/" title="Elasticsearch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/">
+          Elasticsearch
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/1/" title="1 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/1/">
+          1 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-1/" title="Basic Concepts" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-1/">
+        Basic Concepts
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-1/" title="Basic Concepts - Shard" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-1/">
+        Basic Concepts - Shard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-2-2/" title="Distributed Cluster" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-2-2/">
+        Distributed Cluster
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-3/" title="Basic Concepts - Segment" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-3/">
+        Basic Concepts - Segment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-4/" title="Install Elasticsearch with RPM" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-4/">
+        Install Elasticsearch with RPM
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-5/" title="Installation with .zip/.tar.gz" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-5/">
+        Installation with .zip/.tar.gz
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/1/page-1-6/" title="Installation Kibana" class="dd-item ">
+        <a href="/notes/elasticsearch/1/page-1-6/">
+        Installation Kibana
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/2/" title="2 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/2/">
+          2 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-1/" title="Elasticsearch 기본 동작" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-1/">
+        Elasticsearch 기본 동작
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-2/" title="Plugin Installation" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-2/">
+        Plugin Installation
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-3/" title="Head" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-3/">
+        Head
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-4/" title="Elastic-HQ" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-4/">
+        Elastic-HQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/2/page-2-5-1/" title="Elasticsearch Plugins" class="dd-item ">
+        <a href="/notes/elasticsearch/2/page-2-5-1/">
+        Elasticsearch Plugins
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/notes/elasticsearch/3/" title="3 Week" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notes/elasticsearch/3/">
+          3 Week
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-1/" title="Configuring Elasticsearch" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-1/">
+        Configuring Elasticsearch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-2/" title="elasticsearch.yml" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-2/">
+        elasticsearch.yml
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-3/" title="jvm.options" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-3/">
+        jvm.options
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-4/" title="log4j2.properties" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-4/">
+        log4j2.properties
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/notes/elasticsearch/3/page-3-5/" title="그 외 설정" class="dd-item ">
+        <a href="/notes/elasticsearch/3/page-3-5/">
+        그 외 설정
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="/notes"><i class='fa fa-book-open'></i> <label>Notes</label></a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='' href="https://stoptheworld99.github.io/notes/Spring5.0/6/page-6-6.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text"></span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                 
+                 
+                   6.6 Spring Security - OAuth 2.0 
+                 
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
+
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+
+
+
+<h2 id="6-6-spring-security-oauth-2-0">6.6 Spring Security - OAuth 2.0</h2>
+
+<h4 id="oauth2-인증">OAuth2 인증</h4>
+
+<hr />
+
+<ul>
+<li>OAuth 2는 어플리케이션과 Facebook, GitHub 및 DigitalOcean 과 같은 <strong>HTTP 서비스의사용자 계정에 대한 제한된 액세스 권한을 얻을 수있게 해주는 인증 프레임 워크</strong>이다. 이는 사용자 계정을 호스팅하는 서비스에 사용자 인증을 위임하고 타사 응용 프로그램에 사용자 계정에 대한 액세스 권한을 부여하여 작동하게 된다. OAuth 2는 웹 및 데스크톱 응용 프로그램 및 모바일 장치에 대한 인증 흐름을 제공하게 된다.</li>
+</ul>
+
+<h5 id="다음은-일반적인-oauth2-교환에-중요한-사용자이다"><em>다음은 일반적인 OAuth2 교환에 중요한 사용자이다</em></h5>
+
+<ul>
+<li><strong>리소스 소유자 (사용자)</strong> : 리소스 소유자는 자신의 계정에 액세스하기 위해 어플리케이션 을 인증하는 사용자 이다. 응용 프로그램의 사용자 계정의 액세스 권한은 부여 된 권한 (예 : 읽기 또는 쓰기 권한) 의 &ldquo;범위&rdquo;로 제한된다.</li>
+<li><strong>리소스 서버</strong> : 리소스 서버는 사용자의 계정을 호스트하며 보안 유지가 필요한 리소스가 있는 서버이다.</li>
+<li><strong>클라이언트</strong> : 클라이언트는 사용자 계정(사용자 계정을 호스트하는 리소스 서버) 액세스하려는 어플리케이션이다.</li>
+<li><strong>권한 서버</strong> : OAuth 서비스를 제공하며, 사용자의 신원을 인증하며 클라이언트가 리소스 서버에 액세스 할 수 있는 권한을 부여한다.</li>
+</ul>
+
+<p><img src="https://assets.digitalocean.com/articles/oauth/abstract_flow.png" alt="oauthflow" /></p>
+
+<ol>
+<li>어플리케이션은 사용자에게 리소스 서버 자원에 대한 액세스 권한을 요청한다.</li>
+<li>사용자가 액세스 권한을 제공하면 어플리케이션은 권한을 부여 받는다.</li>
+<li>어플리케이션은 사용자 권한 부여 및 자체 클라이언트 권한 정보를 권한 서버에 제공한다.</li>
+<li>인증에 성공하면 인증을 위한 액세스 토큰을 제공한다.</li>
+<li>어플리케이션은 인증을 위해 액세스 토큰을 제공하는 리소스 서버를 호출한다.</li>
+<li>액세스 토큰이 유효하면 리소스 서버는 리소스 세부 정보를 반환한다.</li>
+</ol>
+
+<hr />
+
+<h4 id="springboot-oauth-2-인증-구현하기">Springboot OAuth 2 인증 구현하기</h4>
+
+<hr />
+
+<h5 id="1-의존성-추가">1. 의존성 추가</h5>
+
+<p><code>spring-security-oauth2</code> 는 스프링 시큐리티에 OAuth2 지원을 제공하기 위한 모듈이다. <code>pom.xml</code> 또는 <code>build.gradle</code> 에 추가한다.</p>
+
+<h6 id="pom-xml">pom.xml</h6>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.security.oauth<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-security-oauth2<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></div>
+<h6 id="build-gradle">build.gradle</h6>
+<div class="highlight"><pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span><span class="o">(</span><span class="s1">&#39;org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE&#39;</span><span class="o">)</span></code></pre></div>
+<h5 id="2-권한-및-리소스-서버-설정하기">2. 권한 및 리소스 서버 설정하기</h5>
+
+<p>일반적으로 권한 서버와 리소스 서버를 분리하지만, 예제 소스는 권한 서버와 리소스 서버를 동일하게 지정하였다.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@EnableResourceServer</span>
+<span class="nd">@EnableAuthorizationServer</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Chapter06Application</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Chapter06Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<ul>
+<li><code>@EnableResourceServer</code> : 들어오는 OAuth 2 토큰을 통해 요청을 인증하는 스프링 시큐리티를 사용하는 OAuth2 리소스 서버에 대한 어노테이션이다.</li>
+<li><code>@EnableAuthorizationServer</code> : <code>DispatcherServlet</code> 콘텍스트인 현재 어플리케이션 콘텍스트에서 <code>AuthorizationEndpoint</code> 및 <code>TokenEndPoint</code> 를 사용해 권한 부여 서버를 사용할 수 있도록 하는 어노테이션이다.</li>
+</ul>
+
+<h5 id="3-권한-서버-세부-정보-구성하기">3. 권한 서버 세부 정보 구성하기</h5>
+
+<p>예제 소스에는 <code>application.properties</code> 를 통해 세부 구성을 설정을 하였지만, 자동구성 설정이 잘 되지 않아 <code>@Configuration</code> 을 통하여 수동 구성으로 작성하였다.</p>
+
+<ul>
+<li><p>Spring Boot 2.x 버전에서 OAuth2가 안될때 - <a href="https://hue9010.github.io/spring/OAuth2/">https://hue9010.github.io/spring/OAuth2/</a></p></li>
+
+<li><p><code>AuthorizationServerConfigurerAdapter</code> 를 상속받아 권한서버의 세부 사항을 구성한다.</p>
+
+<h6 id="src-main-java-com-mastering-spring-springboot-config-oauthconfiguration-java">/src/main/java/com/mastering/spring/springboot/config/OAuthConfiguration.java</h6></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OAuthConfiguration</span> <span class="kd">extends</span> <span class="n">AuthorizationServerConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span> <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;authenticationManagerBean&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">AuthenticationManager</span> <span class="n">authenticationManager</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">TestUserDetailService</span> <span class="n">clientDetailsService</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="n">ClientDetailsServiceConfigurer</span> <span class="n">configurer</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">configurer</span><span class="o">.</span><span class="na">inMemory</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">withClient</span><span class="o">(</span><span class="s">&#34;clientId&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">secret</span><span class="o">(</span><span class="s">&#34;{noop}clientSecret&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">authorizedGrantTypes</span><span class="o">(</span><span class="s">&#34;authorization_code&#34;</span><span class="o">,</span> <span class="s">&#34;refresh_token&#34;</span><span class="o">,</span> <span class="s">&#34;password&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">scopes</span><span class="o">(</span><span class="s">&#34;openid&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">authorities</span><span class="o">(</span><span class="s">&#34;ROLE_MY_CLIENT&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="n">AuthorizationServerEndpointsConfigurer</span> <span class="n">endpoints</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">endpoints</span><span class="o">.</span><span class="na">tokenServices</span><span class="o">(</span><span class="n">getDefaultTokenServices</span><span class="o">())</span>
+                 <span class="o">.</span><span class="na">authenticationManager</span><span class="o">(</span><span class="n">authenticationManager</span><span class="o">)</span>
+                 <span class="o">.</span><span class="na">userDetailsService</span><span class="o">(</span><span class="n">clientDetailsService</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nd">@Primary</span>
+    <span class="kd">public</span> <span class="n">DefaultTokenServices</span> <span class="nf">getDefaultTokenServices</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">DefaultTokenServices</span> <span class="n">tokenServices</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultTokenServices</span><span class="o">();</span>
+        <span class="n">tokenServices</span><span class="o">.</span><span class="na">setTokenStore</span><span class="o">(</span><span class="k">new</span> <span class="n">InMemoryTokenStore</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">tokenServices</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<ul>
+<li><p><code>void configure(ClientDetailsServiceConfigurer configurer)</code> :
+클라이언트 ID 와 Secret 자격증명 정보를 메모리에 설정한다. <em>Spring Security 5.0.0.RC1</em> 이후 암호변환정책이 변경되었으므로, 기본값인 <code>DelegatingPasswordEncoder</code> 에는 패드워드 암호화 메소드 접두어가 필요하다. <strong>(bcrypt/noop/pbkdf2/scrypt/sha256)</strong> 중 하나를 사용할 수 있으며, 예제는 따로 인코딩을 지정하지 않았기 때문에 {noop} 접두어를 설정함.</p></li>
+
+<li><p><code>void configure(AuthorizationServerEndpointsConfigurer endpoints)</code> : /oauth/token 엔드포인트에 대한 상세 서비스를 지정할 수 있다.</p></li>
+
+<li><p>[spring-security] 5.0 에서 달라진 암호변환정책, DelegatingPasswordEncoder- <a href="https://java.ihoney.pe.kr/498">https://java.ihoney.pe.kr/498</a></p></li>
+
+<li><p><a href="https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding">https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding</a></p></li>
+</ul>
+
+<h6 id="src-main-java-com-mastering-spring-springboot-config-websecurityconfigurer-java">/src/main/java/com/mastering/spring/springboot/config/WebSecurityConfigurer.java</h6>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebSecurityConfigurer</span> <span class="kd">extends</span> <span class="n">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">AuthenticationManager</span> <span class="nf">authenticationManagerBean</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">authenticationManagerBean</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h6 id="src-main-java-com-mastering-spring-springboot-service-testuserdetailservice-java">src/main/java/com/mastering/spring/springboot/service/TestUserDetailService.java</h6>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestUserDetailService</span> <span class="kd">implements</span> <span class="n">UserDetailsService</span> <span class="o">{</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.security.user.name}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">myUserName</span><span class="o">;</span>
+
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${spring.security.user.password}&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">myUserPassword</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">UserDetails</span> <span class="nf">loadUserByUsername</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UsernameNotFoundException</span> <span class="o">{</span>
+
+        <span class="k">if</span><span class="o">(!</span><span class="n">myUserName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">username</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">UsernameNotFoundException</span><span class="o">(</span><span class="s">&#34;UsernameNotFound [&#34;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">PasswordEncoder</span> <span class="n">encoder</span> <span class="o">=</span> <span class="n">PasswordEncoderFactories</span><span class="o">.</span><span class="na">createDelegatingPasswordEncoder</span><span class="o">();</span>
+        <span class="n">User</span><span class="o">.</span><span class="na">UserBuilder</span> <span class="n">userBuilder</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">passwordEncoder</span><span class="o">(</span><span class="nl">encoder:</span><span class="o">:</span><span class="n">encode</span><span class="o">);</span>
+
+        <span class="n">UserDetails</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userBuilder</span>
+                <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">myUserName</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">myUserPassword</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">&#34;USER&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<ul>
+<li><code>UserDetailsService</code> : 실제 DB 나 혹은 사용자 정보를 조회하여 리턴한다. 아래는 <code>UserDetailsService</code> 를 사용자 정의로 구현하여, 이전 예제에서 설정한 <code>application.yml</code> 에 있는 회원정보를 가져와 검증하도록 작성하였다.</li>
+</ul>
+
+<h4 id="4-oauth-요청-실행">4. OAuth 요청 실행</h4>
+
+<hr />
+
+<h5 id="api-에-액세스-하려면-다음-2단계-프로세스가-필요하다"><em>API 에 액세스 하려면 다음 2단계 프로세스가 필요하다.</em></h5>
+
+<ol>
+<li>액세스 토큰을 얻는다.</li>
+<li>액세스 토큰을 사용해 요청을 실행한다.</li>
+</ol>
+
+<h5 id="액세스-토큰-얻기">액세스 토큰 얻기</h5>
+
+<p><img src="/images/page6-6-1.png" alt="getaccesstoken" /></p>
+
+<h5 id="액세스토큰을-이용한-요청-실행">액세스토큰을 이용한 요청 실행</h5>
+
+<p><img src="/images/page6-6-2.png" alt="requestaccesstoken" /></p>
+
+<h4 id="5-통합테스트">5. 통합테스트</h4>
+
+<hr />
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">OAuth2RestTemplate</span> <span class="nf">getOAuthTemplate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">ResourceOwnerPasswordResourceDetails</span> <span class="n">resource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResourceOwnerPasswordResourceDetails</span><span class="o">();</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&#34;user-name&#34;</span><span class="o">);</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">&#34;user-password&#34;</span><span class="o">);</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setAccessTokenUri</span><span class="o">(</span><span class="n">createUrl</span><span class="o">(</span><span class="s">&#34;/oauth/token&#34;</span><span class="o">));</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setClientId</span><span class="o">(</span><span class="s">&#34;clientId&#34;</span><span class="o">);</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setClientSecret</span><span class="o">(</span><span class="s">&#34;clientSecret&#34;</span><span class="o">);</span>
+    <span class="n">resource</span><span class="o">.</span><span class="na">setGrantType</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">);</span>
+    <span class="n">OAuth2RestTemplate</span> <span class="n">oauthTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OAuth2RestTemplate</span><span class="o">(</span><span class="n">resource</span><span class="o">,</span> <span class="k">new</span> <span class="n">DefaultOAuth2ClientContext</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">oauthTemplate</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">retrieveTodo</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">expected</span> <span class="o">=</span> <span class="s">&#34;{id:1,user:Jack,desc:\&#34;Learn Spring MVC\&#34;,done:false}&#34;</span><span class="o">;</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">getOAuthTemplate</span><span class="o">().</span><span class="na">getForEntity</span><span class="o">(</span><span class="n">createUrl</span><span class="o">(</span><span class="s">&#34;/users/Jack/todos/1&#34;</span><span class="o">),</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">JSONAssert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="n">expected</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getBody</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<ul>
+<li><p><code>ResourceOwnerPasswordResourceDetails resource = new ResourceOwnerPasswordResourceDetails()</code> :
+사용자 자격증명과 클라이언트 자격증명으로 ResourceOwnerPasswordResourceDetails 설정한다.</p></li>
+
+<li><p><code>resource.setAccessTokenUri(createUrl(&quot;/oauth/token&quot;))</code> : 인증서버의 URL 을 구성한다.</p></li>
+
+<li><p><code>OAuth2RestTemplate oauthTemplate = new OAuth2RestTemplate(resource, new DefaultOAuth2ClientContext())</code> :
+<code>OAuth2RestTemplate</code> 은 OAuth2 프로토콜을 지원하는 <code>Resttemplate</code> 의 확장이다.</p></li>
+</ul>
+
+<hr />
+
+<h5 id="출처">출처</h5>
+
+<ul>
+<li><a href="https://oauth.net/2/">https://oauth.net/2/</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2">https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2</a></li>
+</ul>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+            </div> 
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.min.js?1551596329"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1551596329"></script>
+    <script src="/js/jquery.sticky.js?1551596329"></script>
+    <script src="/js/featherlight.min.js?1551596329"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1551596329"></script>
+    <script src="/js/highlight.pack.js?1551596329"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom.71422.js?1551596329"></script>
+    <script src="/js/learn.js?1551596329"></script>
+    <script src="/js/hugo-learn.js?1551596329"></script>
+
+    <link href="/mermaid/mermaid.css?1551596329" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1551596329"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

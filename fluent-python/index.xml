@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fluent Python on @stoptheworld99</title>
+    <link>/fluent-python/</link>
+    <description>Recent content in Fluent Python on @stoptheworld99</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sun, 09 Dec 2018 17:53:39 +0900</lastBuildDate>
+    
+	<atom:link href="/fluent-python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2. 시퀀스</title>
+      <link>/fluent-python/2/page-2-1/</link>
+      <pubDate>Sun, 09 Dec 2018 17:53:39 +0900</pubDate>
+      
+      <guid>/fluent-python/2/page-2-1/</guid>
+      <description>2. Sequence 시퀀스 (Sequence) 란 데이터에 순번을 붙여 나열한 데이터들의 집합을 의미한다. 값이 연속적으로 이어져 있는 자료형을 시퀀스 자료형 이라고 한다. 배열처럼 특정 위치의 데이터를 가리킬 수 있다는 특징이 있다.
+2.1 내장 시퀀스 개요 2.1.1 컨테이너 시퀀스와 균일 시퀀스 컨테이너 시퀀스 (container sequence)  객체에 대한 참조를 담고 있다. 객체에 대한 참조를 담고 있으므로 서로 다른 자료형의 항목을 담을 수 있다. list, tuple, collections.deque 형  균일 시퀀스 (flat sequence)  객체에 대한 참조 대신 메모리 공간에 각 항목의 값을 직접 담는다.</description>
+    </item>
+    
+  </channel>
+</rss>

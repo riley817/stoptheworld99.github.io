@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on @stoptheworld99</title>
+    <link>/python/</link>
+    <description>Recent content in python on @stoptheworld99</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    
+	<atom:link href="/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>파이썬의 자료형</title>
+      <link>/python/page-1-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/python/page-1-1/</guid>
+      <description>파이썬의 자료형 파이썬의 변수와 객체  C 와 같은 언어에서 변수는 메모리 상 저장공간에 직접 값을 할당한다면, 파이썬에서 변수는 메모리상에 생성된 객체를 참조 하는 개념이다.
+&amp;gt;&amp;gt;&amp;gt; x = 100 &amp;gt;&amp;gt;&amp;gt; y = 100 &amp;gt;&amp;gt;&amp;gt; x is y True # 257 부터는 서로 다른 객체로 생성됨. &amp;gt;&amp;gt;&amp;gt; x = 257 &amp;gt;&amp;gt;&amp;gt; y = 257 &amp;gt;&amp;gt;&amp;gt; x is y False  위의 예제에서는 x 와 y 는 100 이라는 메모리상 같은 객체를 가리키고 있다.</description>
+    </item>
+    
+  </channel>
+</rss>
